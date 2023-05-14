@@ -1,4 +1,4 @@
-package io.github.brunoonofre64.dslist.entities;
+package io.github.brunoonofre64.dslist.domain.entities;
 
 import lombok.*;
 
