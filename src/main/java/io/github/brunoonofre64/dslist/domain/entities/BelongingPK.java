@@ -22,6 +22,6 @@ public class BelongingPK implements Serializable {
     private GameEntity game;
 
     @ManyToOne
-    @JoinColumn(name = "game_list_id")
+    @JoinColumn(name = "list_id")
     private GameListEntity gameList;
 }
