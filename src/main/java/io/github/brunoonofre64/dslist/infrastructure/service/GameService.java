@@ -39,4 +39,18 @@ public class GameService {
 
         return new GameDTO(entity);
     }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findAllByList(Long listId) {
+        List<GameEntity> listGames = gameRepository.searchByList(listId);
+
+        if (CollectionUtils.isEmpty(listGames)) {
+            throw new RuntimeException("Lista Vazia");
+        }
+
+        return listGames
+                .stream()
+                .map(GameMinDTO::new)
+                .collect(Collectors.toList());
+    }
 }
