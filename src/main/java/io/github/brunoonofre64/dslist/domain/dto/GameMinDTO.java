@@ -1,6 +1,7 @@
 package io.github.brunoonofre64.dslist.domain.dto;
 
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
+import io.github.brunoonofre64.dslist.infrastructure.jpa.projections.GameMinProjection;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,5 +23,13 @@ public class GameMinDTO {
         this.year = entity.getYear();
         this.imgUrl = entity.getImgUrl();
         this.shortDescription = entity.getShortDescription();
+    }
+
+    public GameMinDTO(GameMinProjection projection) {
+        this.id = projection.getId();
+        this.title = projection.getTitle();
+        this.year = projection.getYear();
+        this.imgUrl = projection.getImgUrl();
+        this.shortDescription = projection.getShortDescription();
     }
 }

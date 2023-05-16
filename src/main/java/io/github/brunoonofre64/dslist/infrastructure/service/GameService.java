@@ -3,6 +3,7 @@ package io.github.brunoonofre64.dslist.infrastructure.service;
 import io.github.brunoonofre64.dslist.domain.dto.GameDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
+import io.github.brunoonofre64.dslist.infrastructure.jpa.projections.GameMinProjection;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public List<GameMinDTO> findAllByList(Long listId) {
-        List<GameEntity> listGames = gameRepository.searchByList(listId);
+        List<GameMinProjection> listGames = gameRepository.searchByList(listId);
 
         if (CollectionUtils.isEmpty(listGames)) {
             throw new RuntimeException("Lista Vazia");
