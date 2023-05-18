@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface GameRepository extends JpaRepository<GameEntity, Long> {
@@ -14,7 +15,6 @@ public interface GameRepository extends JpaRepository<GameEntity, Long> {
     @Query("SELECT g FROM GameEntity g JOIN BelongingEntity b " +
             "ON g.id = b.belongingPK.game.id WHERE b.belongingPK.gameList.id = :listId " +
             "ORDER BY b.position")
-    List<GameMinProjection> searchByList(Long listId);
-
-
+    List<GameMinProjection> searchByList(String listId);
+    Optional<GameEntity> findById(String id);
 }

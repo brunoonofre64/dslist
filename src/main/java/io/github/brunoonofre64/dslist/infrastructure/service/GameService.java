@@ -34,7 +34,7 @@ public class GameService {
     }
 
     @Transactional(readOnly = true)
-    public GameDTO findById(Long id) {
+    public GameDTO findById(String id) {
         GameEntity entity = gameRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Game nao encontrado."));
 
@@ -42,7 +42,7 @@ public class GameService {
     }
 
     @Transactional(readOnly = true)
-    public List<GameMinDTO> findAllByList(Long listId) {
+    public List<GameMinDTO> findAllByList(String listId) {
         List<GameMinProjection> listGames = gameRepository.searchByList(listId);
 
         if (CollectionUtils.isEmpty(listGames)) {
