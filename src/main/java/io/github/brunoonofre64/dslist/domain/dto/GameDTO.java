@@ -11,7 +11,7 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 public class GameDTO {
 
-    private Long id;
+    private String id;
     private String title;
     private Double score;
     private Integer year;

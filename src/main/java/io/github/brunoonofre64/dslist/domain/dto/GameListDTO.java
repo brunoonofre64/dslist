@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class GameListDTO {
-    private Long id;
+    private String id;
 
     private String name;
 

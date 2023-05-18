@@ -3,6 +3,7 @@ package io.github.brunoonofre64.dslist.domain.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_game")
@@ -14,8 +15,8 @@ import javax.persistence.*;
 public class GameEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(columnDefinition = "VARCHAR(36)")
+    private String id;
     private String title;
     private Double score;
     @Column(name = "game_year")
@@ -27,4 +28,10 @@ public class GameEntity {
     private String shortDescription;
     @Column(columnDefinition = "TEXT")
     private String longDescription;
+
+
+    @PrePersist
+    private void prePersis() {
+        this.id = UUID.randomUUID().toString();
+    }
 }

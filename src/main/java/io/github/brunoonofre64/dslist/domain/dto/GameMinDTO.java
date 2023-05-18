@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GameMinDTO {
 
-    private Long id;
+    private String id;
     private String title;
     private Integer year;
     private String imgUrl;
