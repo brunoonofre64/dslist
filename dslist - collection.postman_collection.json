@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "73f9cf55-a191-48d4-9e3f-88c341daff4d",
+		"name": "dslist - collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "buscar games list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/lists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/games",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar games da lista x",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/lists/6ba7b810-9dad-11d1-80b4-00c04fd430c8/games",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"lists",
+								"6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/games/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"games",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dominio publico",
+			"item": [
+				{
+					"name": "buscar games list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dslist-production-df92.up.railway.app/lists",
+							"host": [
+								"dslist-production-df92",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dslist-production-df92.up.railway.app/games",
+							"host": [
+								"dslist-production-df92",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar games da lista x",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dslist-production-df92.up.railway.app/lists/6ba7b810-9dad-11d1-80b4-00c04fd430c8/games",
+							"host": [
+								"dslist-production-df92",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"lists",
+								"6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dslist-production-df92.up.railway.app/games/401edbe8-f5ca-11ed-b67e-0242ac120002",
+							"host": [
+								"dslist-production-df92",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"games",
+								"401edbe8-f5ca-11ed-b67e-0242ac120002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
