@@ -16,11 +16,4 @@ public class ErrorResponse {
     private int codeStatus;
     private String message;
     private CodeMessage codeMessage;
-
-    public ErrorResponse(String error, LocalDateTime timestamp, int codeStatus, CodeMessage codeMessage) {
-        this.error = error;
-        this.timestamp = timestamp;
-        this.codeStatus = codeStatus;
-        this.codeMessage = codeMessage;
-    }
 }

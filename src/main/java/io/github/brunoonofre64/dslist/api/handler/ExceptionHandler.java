@@ -1,8 +1,8 @@
 package io.github.brunoonofre64.dslist.api.handler;
 
 import io.github.brunoonofre64.dslist.api.handler.error.ErrorResponse;
-import io.github.brunoonofre64.dslist.domain.enums.CodeMessage;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
+import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 
 import javax.xml.bind.ValidationException;
 import java.time.LocalDateTime;
@@ -30,6 +29,7 @@ public class ExceptionHandler  {
     private static final String VALIDATION_ERROR = "Validation Error";
     private static final String INTERNAL_SERVER_ERROR = "Internal Server Error";
     private static final LocalDateTime TIMESTAMP = LocalDateTime.now();
+
 
    @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
@@ -98,7 +98,7 @@ public class ExceptionHandler  {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(EmptyListException.class)
-    public ResponseEntity<ErrorResponse> handleUnknownException(EmptyListException ex) {
+    public ResponseEntity<ErrorResponse> handleEmptyListException(EmptyListException ex) {
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .error(BAD_REQUEST)
@@ -106,11 +106,23 @@ public class ExceptionHandler  {
                 .codeStatus(HttpStatus.BAD_REQUEST.value())
                 .message(this.getCodeMessage(ex.getMessage()))
                 .build();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    private String getCodeMessage(CodeMessage codigoMensagem) {
-        return bundleMessageSource.getMessage(codigoMensagem.getValue(), null, LocaleContextHolder.getLocale());
+    @org.springframework.web.bind.annotation.ExceptionHandler(GameNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleGameNotFoundException(GameNotFoundException ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(this.getCodeMessage(ex.getMessage()))
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    private String getCodeMessage(String codigoMensagem) {
+        return bundleMessageSource.getMessage(codigoMensagem, null, LocaleContextHolder.getLocale());
     }
 }
 
