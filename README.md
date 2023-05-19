@@ -168,28 +168,13 @@ flowchart TD
 
 
 
-### Contratos e endpoints para consumo da API localmente ou de produção.
-### Contracts and endpoints for on-premise or production API consumption.
+### Contratos e endpoints para consumo da API localmente ou de produção usando interface do swagger - OpenAPI.
+### Contracts and endpoints for on-premise or production API consumption using interface of swagger - OpenAPI.
 
-RESPOSTA - RESPONSE | END POINT                                                                                                            | MÉTODO / METHOD HTTP | DETALHES / DETAILS
--------- |----------------------------------------------------------------------------------------------------------------------|----------------------| -------
-JSON - 1  | LOCAL http://localhost:8080/games/{uuid} PROD https://dslist-production-df92.up.railway.app/games/{uuid}             | GET                 | Busca um game por uuid / Search game by uuid.
-JSON - 2  | LOCAL http://localhost:8080/games PROD https://dslist-production-df92.up.railway.app/games                           | GET                  | Traz a lista de games / Bring the list of games.
-JSON - 3  | LOCAL http://localhost:8080/lists PROD https://dslist-production-df92.up.railway.app/lists                           | GET                  | Traz a lista de listas de games / Brings the list of game lists.
-JSON - 4  | LOCAL http://localhost:8080/lists/{uuid}/games PROD https://dslist-production-df92.up.railway.app/lists/{uuid}/games | GET               | Recebe o uuid de uma lista de games e traz todos os games dessa lista especificada / Receives the uuid of a list of games and brings all the games from that specified list
-
-#### json 1
-
-![JSON - 1](images/JSON1.png)
-
-#### json 2
-![JSON - 2](images/JSON2.png)
-
-#### json 3 
-![JSON - 3](images/JSON3.png)
-
-#### json 4
-![JSON - 4](images/JSON4.png)
+* *****LOCAL*****
+* *****http://localhost:8080/swagger-ui/index.html*****
+* *****PROD*****
+* *****https://dslist-production-df92.up.railway.app/swagger-ui/index.html*****
 
 
 
