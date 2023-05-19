@@ -3,6 +3,9 @@ package io.github.brunoonofre64.dslist.infrastructure.service;
 import io.github.brunoonofre64.dslist.domain.dto.GameDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
+import io.github.brunoonofre64.dslist.domain.enums.CodeMessage;
+import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
+import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.projections.GameMinProjection;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +27,7 @@ public class GameService {
         List<GameEntity> listGames = gameRepository.findAll();
 
         if (CollectionUtils.isEmpty(listGames)) {
-            throw new RuntimeException("Lista Vazia");
+            throw new EmptyListException(CodeMessage.EMPTY_LIST);
         }
 
         return listGames
@@ -36,7 +39,7 @@ public class GameService {
     @Transactional(readOnly = true)
     public GameDTO findById(String id) {
         GameEntity entity = gameRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Game nao encontrado."));
+                .orElseThrow(() -> new GameNotFoundException(CodeMessage.GAME_NOT_FOUND));
 
         return new GameDTO(entity);
     }
@@ -46,7 +49,7 @@ public class GameService {
         List<GameMinProjection> listGames = gameRepository.searchByList(listId);
 
         if (CollectionUtils.isEmpty(listGames)) {
-            throw new RuntimeException("Lista Vazia");
+            throw new EmptyListException(CodeMessage.EMPTY_LIST);
         }
 
         return listGames
