@@ -94,6 +94,9 @@ URL do Console do H2: *****http://localhost:8080/h2-console*****
 ### Agora você pode explorar o banco de dados PostgreSQL usando o PgAdmin por meio do navegador. Certifique-se de que os contêineres estejam em execução sempre que desejar acessar o PgAdmin.
 ### You can now explore the PostgreSQL database using PgAdmin through the browser. Make sure the containers are running whenever you want to access PgAdmin.
 
+### Mas você também tem a opção de consumir os endpoints públicos que estão puclidados no railway, pode verificar os endpoints logo mais a baixo desta documentação.
+### But you also have the option to consume the public endpoints that are published in the railway, you can check the endpoints at the bottom of this documentation.
+
 ===========================================================================
 
 DEPENDÊNCIAS -  DEPENDENCIES | REFERÊNCIA - REFERENCE
