@@ -106,6 +106,7 @@ LOMBOK | https://mvnrepository.com/artifact/org.projectlombok/lombok/
 JPA | https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa/
 DEV TOOLS | https://spring.io/blog/2015/06/17/devtools-in-spring-boot-1-3
 H2 DATABASE | http://www.h2database.com/html/build.html
+SWAGGER - OPENAPI | https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter/3.0.0 && https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 
 ===========================================================================
 
