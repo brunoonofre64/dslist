@@ -1,16 +1,43 @@
-DROP SEQUENCE if EXISTS SQ_CUSTOMER;
+--SCRIPTS QUE VAO RODAR APENAS EM MEMORIA USANDO H2 DATABASE, PARA RODAR TESTES DE INTEGRACAO
 
-CREATE SEQUENCE SQ_CUSTOMER START WITH 1 INCREMENT BY 1;
+DROP SEQUENCE if EXISTS sq_game;
+DROP SEQUENCE if EXISTS sq_game_list;
 
-DROP TABLE IF EXISTS TBL_CUSTOMER;
+CREATE SEQUENCE sq_game START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE sq_game_list START WITH 1 INCREMENT BY 1;
 
-CREATE TABLE TBL_CUSTOMER(
-ID BIGINT NOT NULL,
-UUID VARCHAR(36) NOT NULL,
-CPF VARCHAR(100) NOT NULL,
-CUSTOMER_NAME VARCHAR(100) NOT NULL,
-CUSTOMER_AGE VARCHAR(3) NOT NULL,
-INC_DATE TIMESTAMP NOT NULL,
-MODF_DATE TIMESTAMP,
-PRIMARY KEY(ID)
+DROP TABLE IF EXISTS tb_game;
+DROP TABLE IF EXISTS tb_game_list;
+DROP TABLE IF EXISTS tb_belonging;
+
+CREATE TABLE tb_game
+(
+    id               VARCHAR(36),
+    title            VARCHAR(255),
+    score            DOUBLE,
+    game_year        INTEGER,
+    genre            VARCHAR(255),
+    platforms        VARCHAR(255),
+    imgUrl           VARCHAR(255),
+    shortDescription TEXT,
+    longDescription  TEXT,
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE tb_game_list
+(
+    id   VARCHAR(36),
+    name VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE tb_belonging
+(
+    game_id  VARCHAR(36),
+    list_id  VARCHAR(36),
+    position INTEGER,
+    PRIMARY KEY (game_id, list_id),
+    FOREIGN KEY (game_id) REFERENCES tb_game (id),
+    FOREIGN KEY (list_id) REFERENCES tb_game_list (id)
 );
