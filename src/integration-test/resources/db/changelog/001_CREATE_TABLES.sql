@@ -18,9 +18,9 @@ CREATE TABLE tb_game
     game_year        INTEGER,
     genre            VARCHAR(255),
     platforms        VARCHAR(255),
-    imgUrl           VARCHAR(255),
-    shortDescription TEXT,
-    longDescription  TEXT,
+    img_url          VARCHAR(255),
+    short_description TEXT,
+    long_description  TEXT,
     PRIMARY KEY (id)
 );
 
