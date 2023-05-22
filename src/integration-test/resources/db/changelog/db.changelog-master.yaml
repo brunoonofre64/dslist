@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: bruno.onofre
+
+  - include:
+      file: 001_CREATE_TABLES.sql
+      relativeToChangelogFile: true
+
