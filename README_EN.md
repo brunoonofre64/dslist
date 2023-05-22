@@ -97,6 +97,8 @@ JPA | https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-st
 DEV TOOLS | https://spring.io/blog/2015/06/17/devtools-in-spring-boot-1-3
 H2 DATABASE | http://www.h2database.com/html/build.html
 SWAGGER - OPENAPI | https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter/3.0.0 && https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+MOCK MVC| https://mvnrepository.com/artifact/io.rest-assured/spring-mock-mvc
+LIQUIBASE| https://mvnrepository.com/artifact/org.liquibase/liquibase-core
 
 ===========================================================================
 
