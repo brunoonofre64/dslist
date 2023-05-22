@@ -1,105 +1,92 @@
-# Projeto DSLIST | DSLIST Project 🍃
+# Projeto DSLIST 🍃
+
+###### ENGLISH VERSION - [README_EN]()
 
 ### O objetivo do projeto é desenvolver uma API baseada em padrões REST, que oferece quatro endpoints para buscar dados de jogos previamente armazenados em um banco de dados. Para o deployment do projeto, foi utilizado o serviço [Railway](https://railway.app) na nuvem. Além disso, o projeto foi configurado com um fluxo de integração e entrega contínua (CI/CD) através de um repositório no Github.
 ### Com o conceito de CI/CD, cada push realizado na branch main do repositório desencadeia automaticamente uma esteira de construção e deployment. Isso significa que, sempre que houver uma atualização no código-fonte, o sistema entrará em ação, construindo a aplicação e implantando-a no ambiente configurado.
 ### O CI/CD permite automatizar e agilizar o processo de desenvolvimento, garantindo a qualidade do software por meio de testes automatizados e assegurando que as mudanças no código sejam entregues ao ambiente de produção de forma rápida e confiável. Com essa abordagem, é possível evitar erros e inconsistências, além de facilitar a manutenção e a evolução do projeto ao longo do tempo.
 
 
-###### English
-
-### The project's goal is to develop an API based on REST standards, which offers four endpoints to fetch game data previously stored in a database. For the deployment of the project, [Railway](https://railway.app) service in the cloud was used. In addition, the project was configured with a continuous integration and delivery (CI/CD) flow through a Github repository. The project's goal is to develop an API based on REST standards, which offers four endpoints to fetch game data previously stored in a database. For the deployment of the project, the Railway service in the cloud was used. In addition, the project was configured with a continuous integration and delivery (CI/CD) flow through a Github repository.
-### With the CI/CD concept, each push performed on the main branch of the repository automatically triggers a build and deployment treadmill. This means that whenever there is an update to the source code, the system will jump into action, building the application and deploying it to the configured environment.
-### CI/CD allows you to automate and streamline the development process, ensuring software quality through automated testing and ensuring that code changes are delivered to the production environment quickly and reliably. With this approach, it is possible to avoid errors and inconsistencies, in addition to facilitating the maintenance and evolution of the project over time.
-
-
-
-
-#### Versões usadas no projeto | Project Versions Used
+#### Versões usadas no projeto 
 ###### - java - 11
 ###### - Spring Boot - 2.6.7 🍃
 
 ===========================================================================
 
-### Para rodar o projeto localmente sem estar em ambiente docker, faça o seguinte: 
-### To run the project locally without being in a docker environment, do the following:
+### Para rodar o projeto localmente sem estar em ambiente docker, faça o seguinte:
 
 #### Certifique-se de ter os seguintes pré-requisitos instalados:
-#### Make sure you have the following prerequisites installed:
-
 
 * JDK 11 [Dowload JDK](https://www.oracle.com/java/technologies/downloads/#java11)
-* Clone o repositório do projeto: | Clone the project repository:
+* Clone o repositório do projeto:
 * Clone HTTPS: https://github.com/brunoonofre64/dslist.git
-* Abra o projeto em sua IDE favorita (por exemplo, IntelliJ IDEA, Eclipse) | Open the project in your favorite IDE (e.g. IntelliJ IDEA, Eclipse) 
-* Certifique-se de que o JDK 11 esteja configurado como o JDK do projeto | Make sure JDK 11 is set as the project's JDK
+* Abra o projeto em sua IDE favorita (por exemplo, IntelliJ IDEA, Eclipse)
+* Certifique-se de que o JDK 11 esteja configurado como o JDK do projeto 
 
 #### Executando o projeto | running the project
-* No diretório raiz do projeto, compile e construa o projeto usando o seguinte comando: | In the root directory of the project, compile and build the project using the following command:
+* No diretório raiz do projeto, compile e construa o projeto usando o seguinte comando: 
 
  *****./mvnw clean install*****
 
-* Após a conclusão bem-sucedida do comando acima, você pode executar o projeto usando o seguinte comando: | After successful completion of the above command, you can run the project using the following command: 
+* Após a conclusão bem-sucedida do comando acima, você pode executar o projeto usando o seguinte comando: 
 
 *****./mvnw spring-boot:run*****
 
-* Isso iniciará o projeto Spring Boot e ele estará acessível localmente. | This will launch the Spring Boot project and it will be locally accessible.
+* Isso iniciará o projeto Spring Boot e ele estará acessível localmente.
 
 *****http://localhost:8080*****
 
-* O projeto está configurado para usar o banco de dados H2 incorporado. Durante a execução, você pode acessar o console do H2 para visualizar e gerenciar o banco de dados. | The project is configured to use the embedded H2 database. While running, you can access the H2 console to view and manage the database.
+* O projeto está configurado para usar o banco de dados H2 incorporado. Durante a execução, você pode acessar o console do H2 para visualizar e gerenciar o banco de dados. 
   
 URL do Console do H2: *****http://localhost:8080/h2-console*****
 
 ===========================================================================
 
-### Para rodar o projeto em container local, usando DOCKER | To run the project in local container, using DOCKER
+### Para rodar o projeto em container local, usando DOCKER
 
-* No diretório raiz do projeto, abra um terminal e execute o seguinte comando cd docker para acessar o diretorio raiz do docker-compose.yml após entrar no diretório execute o seguinte comando: | In the root directory of the project, open a terminal and run the following command cd docker to access the root directory of docker-compose.yml after entering the directory run the following command:
+* No diretório raiz do projeto, abra um terminal e execute o seguinte comando cd docker para acessar o diretorio raiz do docker-compose.yml após entrar no diretório execute o seguinte comando: 
 
 *****docker-compose***** *****up*****
 
-* Isso iniciará o projeto Spring Boot e ele estará acessível localmente. | This will launch the Spring Boot project and it will be locally accessible.
+* Isso iniciará o projeto Spring Boot e ele estará acessível localmente. 
 
 *****http://localhost:8080*****
 
 ### Aqui está um tutorial para acessar o banco de dados PostgreSQL via navegador usando o PgAdmin:
-### Here is a tutorial to access PostgreSQL database via browser using PgAdmin:
 
-* Aguarde até que os contêineres sejam iniciados com êxito. Verifique se os contêineres dev-postgresql e dev-pgadmin estão em execução usando o seguinte comando: | Wait until the containers start successfully. Check that the dev-postgresql and dev-pgadmin containers are running using the following command:
+* Aguarde até que os contêineres sejam iniciados com êxito. Verifique se os contêineres dev-postgresql e dev-pgadmin estão em execução usando o seguinte comando: 
 
 *****docker***** *****ps*****
 
-* Abra um navegador da web e acesse a seguinte URL para acessar o PgAdmin: | Open a web browser and go to the following URL to access PgAdmin:
+* Abra um navegador da web e acesse a seguinte URL para acessar o PgAdmin: 
 
 *****http://localhost:5050*****
 
-* Faça login usando as seguintes credenciais: | Log in using the following credentials:
+* Faça login usando as seguintes credenciais:
 
 *****Email:***** *****me@example.com*****
 
 *****Password:***** *****1234567*****
 
-* Após fazer login no PgAdmin, você precisará adicionar um servidor para conectar-se ao banco de dados PostgreSQL. Siga as etapas abaixo: | After logging into PgAdmin, you will need to add a server to connect to the PostgreSQL database. Follow the steps below:
+* Após fazer login no PgAdmin, você precisará adicionar um servidor para conectar-se ao banco de dados PostgreSQL. Siga as etapas abaixo: 
 
-1. Clique em "Add New Server" (Adicionar novo servidor) no painel do PgAdmin. | Click "Add New Server" in the PgAdmin panel.
-2. Na guia "General" (Geral), defina um nome para o servidor (por exemplo, "My PostgreSQL Server"). | In the "General" tab, define a name for the server (eg "My PostgreSQL Server").
-3. Na guia "Connection" (Conexão), configure as seguintes informações: | On the "Connection" tab, configure the following information:
+1. Clique em "Add New Server" (Adicionar novo servidor) no painel do PgAdmin. 
+2. Na guia "General" (Geral), defina um nome para o servidor (por exemplo, "My PostgreSQL Server").
+3. Na guia "Connection" (Conexão), configure as seguintes informações: 
 
-* Host name/address (Nome do host/endereço): dev-postgresql | Host name/address: dev-postgresql
+* Host name/address (Nome do host/endereço):
 * Port: 5432
 * Nome de usuário (username): postgres
 * Senha (password): 1234567
-* Clique em "Save" (Salvar) | Clico on save
+* Clique em "Save" (Salvar)
 
 ### Agora você pode explorar o banco de dados PostgreSQL usando o PgAdmin por meio do navegador. Certifique-se de que os contêineres estejam em execução sempre que desejar acessar o PgAdmin.
-### You can now explore the PostgreSQL database using PgAdmin through the browser. Make sure the containers are running whenever you want to access PgAdmin.
 
 ### Mas você também tem a opção de consumir os endpoints públicos que estão puclidados no railway, pode verificar os endpoints logo mais a baixo desta documentação.
-### But you also have the option to consume the public endpoints that are published in the railway, you can check the endpoints at the bottom of this documentation.
 
 ===========================================================================
 
-DEPENDÊNCIAS -  DEPENDENCIES | REFERÊNCIA - REFERENCE
+DEPENDÊNCIAS  | REFERÊNCIA
 ------------ | ---------------
 SPRING WEB | https://mvnrepository.com/artifact/org.springframework/spring-web/
 LOMBOK | https://mvnrepository.com/artifact/org.projectlombok/lombok/
@@ -115,7 +102,7 @@ SWAGGER - OPENAPI | https://mvnrepository.com/artifact/io.springfox/springfox-bo
 
 ```````mermaid
 ---
-title: DSLIST DIAGRAM - ER | DSLIST DIAGRAMA - ER
+title: DSLIST DIAGRAMA - ER
 ---
 erDiagram
 GAME ||..|{ BELONGING : IS
@@ -150,7 +137,7 @@ Long game_list_id
 
 ````mermaid
 ---
-title: DSLIST FLOW OF REQUESTS | DSLIST FLUXO DAS REQUISIÇÕES
+title: DSLIST FLUXO DAS REQUISIÇÕES
 ---
 
 flowchart TD
@@ -170,7 +157,6 @@ flowchart TD
 
 
 ### Contratos e endpoints para consumo da API localmente ou de produção usando interface do swagger - OpenAPI.
-### Contracts and endpoints for on-premise or production API consumption using interface of swagger - OpenAPI.
 
 * *****LOCAL*****
 * *****http://localhost:8080/swagger-ui/index.html*****
