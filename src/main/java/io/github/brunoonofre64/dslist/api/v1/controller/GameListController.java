@@ -27,6 +27,6 @@ public class GameListController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{listId}/games")
     public List<GameMinDTO> findAllByList(@PathVariable(name = "listId") String listId) {
-        return gameService.findAllByList(listId);
+        return gameService.findAllByListId(listId);
     }
 }

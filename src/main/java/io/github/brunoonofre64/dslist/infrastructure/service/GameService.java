@@ -45,7 +45,7 @@ public class GameService {
     }
 
     @Transactional(readOnly = true)
-    public List<GameMinDTO> findAllByList(String listId) {
+    public List<GameMinDTO> findAllByListId(String listId) {
         List<GameMinProjection> listGames = gameRepository.searchByList(listId);
 
         if (CollectionUtils.isEmpty(listGames)) {
