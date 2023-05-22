@@ -15,7 +15,7 @@ import java.util.UUID;
 public class GameEntity {
 
     @Id
-    @Column(columnDefinition = "VARCHAR(36)")
+    @Column(length = 36)
     private String id;
     private String title;
     private Double score;
