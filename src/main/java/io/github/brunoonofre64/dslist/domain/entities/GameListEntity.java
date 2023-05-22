@@ -9,6 +9,7 @@ import java.util.UUID;
 @Table(name = "tb_game_list")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class GameListEntity {
