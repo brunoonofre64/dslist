@@ -28,5 +28,4 @@ class GameListControllerTestIT {
 
     GameListStubIntegration gameListStub = new GameListStubIntegration();
 
-
 }
