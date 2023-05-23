@@ -7,8 +7,8 @@
 ##### CI/CD allows you to automate and streamline the development process, ensuring software quality through automated testing and ensuring that code changes are delivered to the production environment quickly and reliably. With this approach, it is possible to avoid errors and inconsistencies, in addition to facilitating the maintenance and evolution of the project over time.
 
 #### Project Versions Used
-###### - java - 11
-###### - Spring Boot - 2.6.7 🍃
+###### - java : 11
+###### - Spring Boot : 2.6.7 🍃
 
 ===========================================================================
 
