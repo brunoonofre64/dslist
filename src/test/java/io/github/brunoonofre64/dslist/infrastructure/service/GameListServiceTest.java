@@ -5,13 +5,11 @@ import io.github.brunoonofre64.dslist.domain.entities.GameListEntity;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameListRepository;
 import io.github.brunoonofre64.dslist.stubs.GameListStub;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 

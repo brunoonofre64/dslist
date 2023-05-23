@@ -1,14 +1,20 @@
 package io.github.brunoonofre64.dslist.domain.entities;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_belonging")
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class BelongingEntity {
 
     @EmbeddedId

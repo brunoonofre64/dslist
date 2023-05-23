@@ -1,20 +1,16 @@
 package io.github.brunoonofre64.dslist.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
+@Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-@Embeddable
 public class BelongingPK implements Serializable {
 
     @ManyToOne
