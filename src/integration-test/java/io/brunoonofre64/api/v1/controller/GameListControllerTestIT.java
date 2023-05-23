@@ -25,7 +25,4 @@ class GameListControllerTestIT {
     void seUp() {
         gameListRepository.deleteAll();
     }
-
-    GameListStubIntegration gameListStub = new GameListStubIntegration();
-
 }
