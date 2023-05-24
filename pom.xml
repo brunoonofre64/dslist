@@ -197,49 +197,12 @@
 				<version>2.22.2</version>
 				<configuration>
 					<excludes>
-						<exclude>**/*IT</exclude>
+						<exclude>**/*IntegrationTest.java</exclude>
 					</excludes>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>integration-test</id>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.22.2</version>
-						<executions>
-							<execution>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>test</goal>
-								</goals>
-								<configuration>
-									<excludes>
-										<exclude>none</exclude>
-									</excludes>
-									<includes>
-										<include>**/*IT</include>
-									</includes>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-				<testResources>
-					<testResource>
-						<directory>src/integration-test/resources</directory>
-						<filtering>true</filtering>
-					</testResource>
-				</testResources>
-			</build>
-		</profile>
-	</profiles>
-
 
 </project>
