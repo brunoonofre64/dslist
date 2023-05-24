@@ -51,12 +51,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
@@ -68,28 +62,182 @@
 			<version>3.0.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>${java.version}</release>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.6</version>
+				<configuration>
+					<excludes>
+						<exclude>**/*Config.*</exclude>
+						<exclude>**/*Application.*</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>add-integration-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/integration-test/java</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-resource</id>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>add-test-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>src/integration-test/resources</directory>
+									<targetPath>resources</targetPath>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<excludes>
+						<exclude>**/*IT</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>integration-test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.22.2</version>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>none</exclude>
+									</excludes>
+									<includes>
+										<include>**/*IT</include>
+									</includes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+				<testResources>
+					<testResource>
+						<directory>src/integration-test/resources</directory>
+						<filtering>true</filtering>
+					</testResource>
+				</testResources>
+			</build>
+		</profile>
+	</profiles>
+
 
 </project>
