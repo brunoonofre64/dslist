@@ -92,22 +92,9 @@
 		</dependency>
 	</dependencies>
 
+
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>io.github.brunoonofre64.dslist.DslistApplication</mainClass>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib/</classpathPrefix>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -210,12 +197,48 @@
 				<version>2.22.2</version>
 				<configuration>
 					<excludes>
-						<exclude>**/*IntegrationTest.java</exclude>
+						<exclude>**/*IT</exclude>
 					</excludes>
-					<argLine>-Dfile.encoding=UTF-8</argLine>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>integration-test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.22.2</version>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>none</exclude>
+									</excludes>
+									<includes>
+										<include>**/*IT</include>
+									</includes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+				<testResources>
+					<testResource>
+						<directory>src/integration-test/resources</directory>
+						<filtering>true</filtering>
+					</testResource>
+				</testResources>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
