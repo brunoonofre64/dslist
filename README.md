@@ -157,6 +157,221 @@ flowchart TD
 
 ===========================================================================
 
+##### Voce também pode acessar o diagrama de classes abaixo clicando aqui [MERMAID_DIAGRAM](https://mermaid.live/edit#pako:eNrtWG1P4zgQ_iuW9wt7UARLSyGqKgFld3u3BUSLTnuqhEziltwmdmQ7sF2O_35jJ00c17S9lw_34UCCZGaeefeM2xcc8ojiAIcJkXIQk7kg6ZQh-DEU9Imk9JKpWC3QS0HXPy0URwEaKxGzuU0FuYT6GDLkAhgDnj8k1GYsKBEBGjJF51TYjDllwqsqS4iacZFKHzNO53ci8XrwyIUaUBmKOFMxZz6ZhLP5myKvU-Ym5kss1fbJYYBYq_KcageAe_NLU9_cIOtSuDztR-B4tN6Cz-uH2nxg-9JIPpdxkZpGyTy5GUyu_-8Yb8dsmZmN7aL1jWL2TxP9Zj7_bmYcN3_OyC01fcNFo-N6vRiMihkJab9fk2-g4HGIUqoeeSSR4igDISgfIuji9m7wZi7-kpVdJCHu8PF8oUuyk8CfYZW39wHS1F6Z4RvBf6ehDrShYBaz6HwxjHZiG-ieUuNoswGajjoOWvLVGdwWsOKvR3wXzgmEuvO-fJzovqjevkJSqpehaYDqdexUXTMc42MqnuKQarNFfs4SwDezCf3aX7L96QMJC19UCOTW1qjQ6kn2RpfKI9n3luuCMyV4klDxX4ppG6_eDOtSCC5uqcw4kyYtLUQ1qT7EelikVCqSZqCQhyQZEEUnQNM8pG8MY0VUDvMUWsvQQFySuTNfvCf1AtCjQrp5TCnLUyqIOWbWObsc3Uy-3n8Zjic17dPZ6PL-6npy__H67mpQ09-hJ5LkvqlZhv49pKZ1PxMWldkrHmWRAxg3j4I_M_SwgCeKzm6GECIMHhhBkjOSxD9ohJ7JolGW25zphFXal3F95AKJgleqb8Au00yZPnCB7-p0WtkyLHMQS4Iud7rkOV1yxdVHnrPoX1Y9kLphz7IMJrSpVBlpr2fR-v2y8rsoJbE7JkoL57lOOzTyLJ6jSkvxnje7YBfRZRTQtjwXYYkuVY0NSbt8CwOTRAQuDGsEg4Y742cyh723pSMki7WdAQ-_UVUQW5o4ZDOuGWfFY8PCr_RhK-0tOFhCXosYJr5zU9k1rCWKCm0K1I6ewppW2rTu663WH_3m9g3gBCjKIlnIWWvFyNZYuA-kWUJTypRcarUuuxs1O1uu0l7rcC24N9O1JnyL0QAcLb4wfG41dqZuI5ULViGWG6QSt30aMg2ro14RbqaiBhQQa5JXiFLFqm6fsGXT1V27stxAVmgegWLjODLNmOw77EqeylsPPpziVmuKD_b3f5ric_tDxWci3V4y4midvFPTSv-hT3jKVmZ8q9V3VrmWNUN_jXQz3xYCMI0FqgGuFvj4lMdJZFaIVCIPIU_UQFdHvsa7C8Q5TavDfAPIa6gH5Vt1tIrLb2gD6M2IrOXiNJQ_GL88TL-VjYPq3rfro59h2cgNELesNUz_-naT9m5Fo_58TADQ3B5rRes1sFYM72G4BcHejHCAzcKYYmgjuHrhAB4jIr5NMcx6kCO54uMFC3EALUb3cJ5FcE0rv8PBwYwkEqgZYTh4wd9xcNjdPz44Pjk-6Zyenh6fdtp7eIGDk6P99tFBu_2hc9TuHH_onL7u4R-cg4KD_W73oNPptNvdk6NOp9vuGm2_GWZhkkZ6qo3Kr5D0v9c_AfZ7Kyk)
+
+````mermaid
+---
+title: DIAGRAMA DE CLASSES
+---
+
+classDiagram
+    class GameEntity {
+        - id: String
+        - title: String
+        - score: Double
+        - year: Integer
+        - genre: String
+        - platforms: String
+        - imgUrl: String
+        - shortDescription: String
+        - longDescription: String
+    }
+
+    class GameListEntity {
+        - id: String
+        - name: String
+    }
+
+    class BelongingPK {
+        - game: GameEntity
+        - gameList: GameListEntity
+    }
+
+    class BelongingEntity {
+        - belongingPK: BelongingPK
+        - position: Integer
+    }
+
+    class GameDTO {
+        - id: String
+        - title: String
+        - score: Double
+        - year: Integer
+        - genre: String
+        - platforms: String
+        - imgUrl: String
+        - shortDescription: String
+        - longDescription: String
+    }
+
+    class GameListDTO {
+        - id: String
+        - name: String
+    }
+
+    class GameMinDTO {
+        - id: String
+        - title: String
+        - year: Integer
+        - imgUrl: String
+        - shortDescription: String
+    }
+
+    class JpaRepository {
+        <<interface>>
+        Public methods to perform a CRUD
+    }
+
+    class GameRepository {
+        <<interface>>
+        + searchByList(listId: String): List<GameMinProjection>
+        + findById(id: String): GameEntity
+    }
+
+class GameListRepository {
+<<interface>>
+}
+
+class BelongingRepository {
+<<interface>>
+}
+
+class GameMinProjection {
+<<interface>>
++ getId()
++ getTitle()
++ getYear()
++ getImgUrl()
++ getShortDescription()
+}
+
+class GameService {
++ findAll(): List<GameMinDTO>
++ findById(id: String): GameDTO
++ findAllByListId(listId: String): List<GameMinDTO>
+}
+
+class GameListService {
++ findAll(): List<GameListDTO>
+    }
+
+class GameController {
++ findAll(): List<GameMinDTO>
++ findById(id: String): GameDTO
++ findAllByListId(listId: String): List<GameMinDTO>
+}
+
+class GameListController {
++ findAll(): List<GameListDTO>
+    }
+
+class ErrorResponse {
+- error: String
+- timestamp: LocalDateTime
+-  codeStatus: int
+-  message: String
+    
+    }
+
+class CodeMessage {
+<<enumeration>>
+EMPTY_LIST
+GAME_NOT_FOUND
+# value: String
+}
+
+class ExceptionHandler {
+Handles errors thrown by the API in a personalized way
+}
+
+class RuntimeException {
+For runtime errors
+}
+
+class EmptyListException {
+# message: CodeMessage
++ getMessage(): message
+}
+
+class GameNotFoundException {
+# message: CodeMessage
++ getMessage(): message
+}
+
+class DslistApplication{
+<<Application>>
++ main()
+}
+
+class MessageBundleConfig {
+<<Configuration>>
++ exceptionResourceBundleMessageSource(): ReloadableResourceBundleMessageSource:
+}
+
+class SwaggerConfig {
+<<Configuration>>
++ api(): Docket
+- apiInfo(): ApiInfo
+}
+
+class WebConfig {
+<<Configuration>>
+- corsOrigins: String
++ corsConfigurer(): WebMvcConfigurer
+}
+
+GameEntity --|> JpaRepository: Extends
+GameRepository --|> GameEntity: Implements
+
+GameListEntity --|> JpaRepository: Extends
+GameListRepository --|> GameListEntity: Implements
+
+BelongingEntity --|> JpaRepository: Extends
+BelongingRepository --|> BelongingEntity: Implements
+
+GameRepository --|> GameMinProjection: Returns
+
+GameService --|> GameRepository: Inject
+GameListService --|> GameListRepository: Inject
+
+GameController --|> GameService: Inject
+GameListController --|> GameListService: Inject
+
+GameService -- GameDTO: Returns
+GameService -- GameMinDTO: Returns
+GameListService -- GameListDTO: Returns
+
+GameEntity"1"--"0..*"BelongingPK: Has
+GameListEntity"1" --"0..*"BelongingPK: Has
+BelongingEntity"1"--"1"BelongingPK: Has
+
+ExceptionHandler --> GameController: Handles
+ExceptionHandler --> GameListController: Handles
+
+ErrorResponse --> ExceptionHandler: Build the structure
+
+EmptyListException --> RuntimeException: Extends
+GameNotFoundException --> RuntimeException: Extends
+
+EmptyListException <-- ExceptionHandler: Handles
+GameNotFoundException <-- ExceptionHandler: Handles
+
+EmptyListException --> CodeMessage: Returns
+GameNotFoundException --> CodeMessage: Returns
+
+DslistApplication  --|> GameController: Contains
+DslistApplication  --|> GameListController: Contains
+
+
+MessageBundleConfig --> DslistApplication: Bean
+SwaggerConfig --> DslistApplication: Bean
+WebConfig --> DslistApplication: Bean
+
+
+
+````
+
+===========================================================================
 
 
 
