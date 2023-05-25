@@ -101,62 +101,6 @@ LIQUIBASE| https://mvnrepository.com/artifact/org.liquibase/liquibase-core
 
 ===========================================================================
 
-
-
-
-```````mermaid
----
-title: DSLIST DIAGRAM - ER 
----
-erDiagram
-GAME ||..|{ BELONGING : IS
-GAME_LIST }|..|{ BELONGING : IS
-
-GAME {
-Long id
-String title
-Double score
-Integer year
-String genre
-String platforms
-String imgUrl
-String shortDescription
-String longDescription
-}
-
-GAME_LIST {
-Long id
-String name
-}
-
-BELONGING {
-Long game_id FK
-Long game_list_id
-}
-
-
-````````
-===========================================================================
-
-
-````mermaid
----
-title: DSLIST FLOW OF REQUESTS 
----
-
-flowchart TD
-    userWeb[User web] --> searchGame{Search game}
-    searchGame -->|click| getAll[Get List of all games]
-    searchGame -->|click| getOnClick[Get games by click on  image]
-    userWeb[User web] --> byListOfGame{Search lists of games}
-    byListOfGame --> |click| byGameGender[Get list by gender]
-    byListOfGame --> |click| gameInsideList[Get games of list by gender]
-    
-
-````
-
-===========================================================================
-
 #### You can also access the class diagram below by clicking here [MERMAID_DIAGRAM](https://mermaid.live/edit#pako:eNrtWG1P4zgQ_iuW9wt7UARLSyGqKgFld3u3BUSLTnuqhEziltwmdmQ7sF2O_35jJ00c17S9lw_34UCCZGaeefeM2xcc8ojiAIcJkXIQk7kg6ZQh-DEU9Imk9JKpWC3QS0HXPy0URwEaKxGzuU0FuYT6GDLkAhgDnj8k1GYsKBEBGjJF51TYjDllwqsqS4iacZFKHzNO53ci8XrwyIUaUBmKOFMxZz6ZhLP5myKvU-Ym5kss1fbJYYBYq_KcageAe_NLU9_cIOtSuDztR-B4tN6Cz-uH2nxg-9JIPpdxkZpGyTy5GUyu_-8Yb8dsmZmN7aL1jWL2TxP9Zj7_bmYcN3_OyC01fcNFo-N6vRiMihkJab9fk2-g4HGIUqoeeSSR4igDISgfIuji9m7wZi7-kpVdJCHu8PF8oUuyk8CfYZW39wHS1F6Z4RvBf6ehDrShYBaz6HwxjHZiG-ieUuNoswGajjoOWvLVGdwWsOKvR3wXzgmEuvO-fJzovqjevkJSqpehaYDqdexUXTMc42MqnuKQarNFfs4SwDezCf3aX7L96QMJC19UCOTW1qjQ6kn2RpfKI9n3luuCMyV4klDxX4ppG6_eDOtSCC5uqcw4kyYtLUQ1qT7EelikVCqSZqCQhyQZEEUnQNM8pG8MY0VUDvMUWsvQQFySuTNfvCf1AtCjQrp5TCnLUyqIOWbWObsc3Uy-3n8Zjic17dPZ6PL-6npy__H67mpQ09-hJ5LkvqlZhv49pKZ1PxMWldkrHmWRAxg3j4I_M_SwgCeKzm6GECIMHhhBkjOSxD9ohJ7JolGW25zphFXal3F95AKJgleqb8Au00yZPnCB7-p0WtkyLHMQS4Iud7rkOV1yxdVHnrPoX1Y9kLphz7IMJrSpVBlpr2fR-v2y8rsoJbE7JkoL57lOOzTyLJ6jSkvxnje7YBfRZRTQtjwXYYkuVY0NSbt8CwOTRAQuDGsEg4Y742cyh723pSMki7WdAQ-_UVUQW5o4ZDOuGWfFY8PCr_RhK-0tOFhCXosYJr5zU9k1rCWKCm0K1I6ewppW2rTu663WH_3m9g3gBCjKIlnIWWvFyNZYuA-kWUJTypRcarUuuxs1O1uu0l7rcC24N9O1JnyL0QAcLb4wfG41dqZuI5ULViGWG6QSt30aMg2ro14RbqaiBhQQa5JXiFLFqm6fsGXT1V27stxAVmgegWLjODLNmOw77EqeylsPPpziVmuKD_b3f5ric_tDxWci3V4y4midvFPTSv-hT3jKVmZ8q9V3VrmWNUN_jXQz3xYCMI0FqgGuFvj4lMdJZFaIVCIPIU_UQFdHvsa7C8Q5TavDfAPIa6gH5Vt1tIrLb2gD6M2IrOXiNJQ_GL88TL-VjYPq3rfro59h2cgNELesNUz_-naT9m5Fo_58TADQ3B5rRes1sFYM72G4BcHejHCAzcKYYmgjuHrhAB4jIr5NMcx6kCO54uMFC3EALUb3cJ5FcE0rv8PBwYwkEqgZYTh4wd9xcNjdPz44Pjk-6Zyenh6fdtp7eIGDk6P99tFBu_2hc9TuHH_onL7u4R-cg4KD_W73oNPptNvdk6NOp9vuGm2_GWZhkkZ6qo3Kr5D0v9c_AfZ7Kyk)
 
 ````mermaid
