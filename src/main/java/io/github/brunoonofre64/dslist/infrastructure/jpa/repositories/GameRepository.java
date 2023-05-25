@@ -10,11 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface GameRepository extends JpaRepository<GameEntity, Long> {
+public interface GameRepository extends JpaRepository<GameEntity, String> {
 
     @Query("SELECT g FROM GameEntity g JOIN BelongingEntity b " +
             "ON g.id = b.belongingPK.game.id WHERE b.belongingPK.gameList.id = :listId " +
             "ORDER BY b.position")
     List<GameMinProjection> searchByList(String listId);
+    @Override
     Optional<GameEntity> findById(String id);
 }

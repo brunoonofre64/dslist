@@ -23,7 +23,6 @@ public class ExceptionHandler  {
 
     private final ReloadableResourceBundleMessageSource bundleMessageSource;
 
-
     private static final String BAD_REQUEST = "Bad Request";
     private static final String NOT_FOUND = "Not Found";
     private static final String VALIDATION_ERROR = "Validation Error";

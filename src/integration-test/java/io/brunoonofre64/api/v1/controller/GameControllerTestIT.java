@@ -23,6 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import static io.brunoonofre64.utils.ConstantesIntegrationTest.*;
@@ -60,7 +61,7 @@ class GameControllerTestIT {
     @Test
     @DisplayName("Must find all games with success and return status ok")
     void mustFindAllGamesWithSuccessAndReturnOk() throws Exception {
-        gameRepository.save(gameStub.buildGameEntity());
+        GameEntity game = gameRepository.save(gameStub.buildGameEntity());
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_GAME)
                         .contentType(MediaType.APPLICATION_JSON))
