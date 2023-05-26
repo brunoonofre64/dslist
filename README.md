@@ -25,7 +25,7 @@
 * Abra o projeto em sua IDE favorita (por exemplo, IntelliJ IDEA, Eclipse)
 * Certifique-se de que o JDK 11 esteja configurado como o JDK do projeto 
 
-#### Executando o projeto | running the project
+#### Executando o projeto 
 * No diretório raiz do projeto, compile e construa o projeto usando o seguinte comando: 
 
  *****./mvnw clean install*****
