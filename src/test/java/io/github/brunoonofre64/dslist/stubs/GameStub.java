@@ -1,6 +1,5 @@
 package io.github.brunoonofre64.dslist.stubs;
 
-import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameRequestDTO;
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.projections.GameMinProjection;
@@ -23,17 +22,7 @@ public class GameStub {
                 .longDescription(TEXT_DEFAULT)
                 .build();
     }
-
-    public GameMinDTO buildGameMinDTO() {
-        return GameMinDTO
-                .builder()
-                .id(ID_DEFAULT)
-                .title(TEXT_DEFAULT)
-                .year(INTEGER_DEFAULT)
-                .imgUrl(TEXT_DEFAULT)
-                .shortDescription(TEXT_DEFAULT)
-                .build();
-    }
+    
 
     public GameRequestDTO buildGameRequestDTO() {
         return GameRequestDTO
@@ -46,6 +35,20 @@ public class GameStub {
                 .imgUrl(TEXT_DEFAULT)
                 .shortDescription(TEXT_DEFAULT)
                 .longDescription(TEXT_DEFAULT)
+                .build();
+    }
+
+    public GameRequestDTO buildGameRequestDTOUpdate() {
+        return GameRequestDTO
+                .builder()
+                .title(TEXT_DEFAULT_2)
+                .score(DOUBLE_DEFAULT_2)
+                .year(INTEGER_DEFAULT_2)
+                .genre(TEXT_DEFAULT_2)
+                .platforms(TEXT_DEFAULT_2)
+                .imgUrl(TEXT_DEFAULT_2)
+                .shortDescription(TEXT_DEFAULT_2)
+                .longDescription(TEXT_DEFAULT_2)
                 .build();
     }
 

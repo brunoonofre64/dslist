@@ -37,6 +37,7 @@ class GameServiceTest {
     private GameEntity gameEntity;
     private GameMinProjection gameMinProjection;
     private GameRequestDTO gameRequestDTO;
+    private GameRequestDTO gameRequestDTOUpdate;
 
     GameStub gameStub = new GameStub();
 
@@ -64,6 +65,36 @@ class GameServiceTest {
     void mustthrowErrorByGameInputNull() {
         Throwable ex = assertThrows(GameNotFoundException.class,
                 () -> service.save(null));
+
+        assertEquals(GameNotFoundException.class, ex.getClass());
+    }
+
+    @Test
+    @DisplayName("Must update game with success")
+    void mustUpdateGameWithSuccess() {
+        when(gameRepository.findById(anyString())).thenReturn(Optional.ofNullable(gameEntity));
+
+        GameDTO response = service.update(ID_DEFAULT, gameRequestDTOUpdate);
+
+        assertNotNull(response);
+        assertEquals(TEXT_DEFAULT_2, response.getTitle());
+        assertEquals(TEXT_DEFAULT_2, response.getGenre());
+    }
+
+    @Test
+    @DisplayName("Must throw an error to try update with input dto null")
+    void mustThrowErrorToTryUpdateWithInputNull() {
+        Throwable ex = assertThrows(GameNotFoundException.class,
+                () -> service.update(ID_DEFAULT,null));
+
+        assertEquals(GameNotFoundException.class, ex.getClass());
+    }
+
+    @Test
+    @DisplayName("Must throw an error to try update with input dto null")
+    void mustThrowAnErrorToTryUpdateByInvalidId() {
+        Throwable ex = assertThrows(GameNotFoundException.class,
+                () -> service.update(INVALID_ID, gameRequestDTOUpdate));
 
         assertEquals(GameNotFoundException.class, ex.getClass());
     }
@@ -135,5 +166,6 @@ class GameServiceTest {
         gameEntity = gameStub.buildGameEntity();
         gameMinProjection = gameStub.buildGameMinProjection();
         gameRequestDTO = gameStub.buildGameRequestDTO();
+        gameRequestDTOUpdate = gameStub.buildGameRequestDTOUpdate();
     }
 }
