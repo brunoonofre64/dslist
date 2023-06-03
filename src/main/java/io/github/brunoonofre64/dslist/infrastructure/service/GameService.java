@@ -2,6 +2,7 @@ package io.github.brunoonofre64.dslist.infrastructure.service;
 
 import io.github.brunoonofre64.dslist.domain.dto.GameDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
+import io.github.brunoonofre64.dslist.domain.dto.GameRequestDTO;
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
 import io.github.brunoonofre64.dslist.domain.enums.CodeMessage;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
@@ -56,5 +57,17 @@ public class GameService {
                 .stream()
                 .map(GameMinDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    public GameDTO save(GameRequestDTO gameRequestDTO) {
+        if (gameRequestDTO == null) {
+            throw new GameNotFoundException(CodeMessage.GAME_NOT_FOUND);
+        }
+
+        GameEntity entity = gameRequestDTO.toEntity();
+
+        gameRepository.save(entity);
+
+        return new GameDTO(entity);
     }
 }
