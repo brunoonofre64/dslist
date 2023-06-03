@@ -2,6 +2,7 @@ package io.github.brunoonofre64.dslist.infrastructure.service;
 
 import io.github.brunoonofre64.dslist.domain.dto.GameDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
+import io.github.brunoonofre64.dslist.domain.dto.GameRequestDTO;
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
 import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
@@ -35,6 +36,7 @@ class GameServiceTest {
 
     private GameEntity gameEntity;
     private GameMinProjection gameMinProjection;
+    private GameRequestDTO gameRequestDTO;
 
     GameStub gameStub = new GameStub();
 
@@ -43,6 +45,27 @@ class GameServiceTest {
         MockitoAnnotations.openMocks(this);
         service = new GameService(gameRepository);
         this.buildArrangeOfTests();
+    }
+
+    @Test
+    @DisplayName("Must save new game with success")
+    void mustSaveNewGameWitchSuccess() {
+        when(gameRepository.save(any())).thenReturn(gameEntity);
+
+        GameDTO response = service.save(gameRequestDTO);
+
+        assertNotNull(response);
+        assertEquals(TEXT_DEFAULT, response.getTitle());
+        assertEquals(TEXT_DEFAULT, response.getGenre());
+    }
+
+    @Test
+    @DisplayName("Must throw an error by game input null")
+    void mustthrowErrorByGameInputNull() {
+        Throwable ex = assertThrows(GameNotFoundException.class,
+                () -> service.save(null));
+
+        assertEquals(GameNotFoundException.class, ex.getClass());
     }
 
     @Test
@@ -111,5 +134,6 @@ class GameServiceTest {
     private void buildArrangeOfTests() {
         gameEntity = gameStub.buildGameEntity();
         gameMinProjection = gameStub.buildGameMinProjection();
+        gameRequestDTO = gameStub.buildGameRequestDTO();
     }
 }

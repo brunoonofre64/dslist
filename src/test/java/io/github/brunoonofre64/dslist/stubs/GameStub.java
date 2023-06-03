@@ -1,7 +1,7 @@
 package io.github.brunoonofre64.dslist.stubs;
 
-import io.github.brunoonofre64.dslist.domain.dto.GameDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
+import io.github.brunoonofre64.dslist.domain.dto.GameRequestDTO;
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.projections.GameMinProjection;
 
@@ -35,10 +35,9 @@ public class GameStub {
                 .build();
     }
 
-    public GameDTO buildGameDTO() {
-        return GameDTO
+    public GameRequestDTO buildGameRequestDTO() {
+        return GameRequestDTO
                 .builder()
-                .id(ID_DEFAULT)
                 .title(TEXT_DEFAULT)
                 .score(DOUBLE_DEFAULT)
                 .year(INTEGER_DEFAULT)
