@@ -28,4 +28,8 @@ public class GameRequestDTO {
 
         return entity;
     }
+
+    public void toEntity(GameEntity entity) {
+        BeanUtils.copyProperties(this, entity);
+    }
 }

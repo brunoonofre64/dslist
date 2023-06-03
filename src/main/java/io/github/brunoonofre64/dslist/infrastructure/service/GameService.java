@@ -70,4 +70,19 @@ public class GameService {
 
         return new GameDTO(entity);
     }
+
+    public GameDTO update(String id, GameRequestDTO gameRequestDTO) {
+        if (gameRequestDTO == null) {
+            throw new GameNotFoundException(CodeMessage.GAME_NOT_FOUND);
+        }
+
+        GameEntity entity = gameRepository.findById(id)
+                .orElseThrow(() -> new GameNotFoundException(CodeMessage.GAME_NOT_FOUND));
+
+        gameRequestDTO.toEntity(entity);
+
+        gameRepository.save(entity);
+
+        return new GameDTO(entity);
+    }
 }
