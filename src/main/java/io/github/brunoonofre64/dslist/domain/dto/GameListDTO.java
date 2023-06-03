@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GameListDTO {
     private String id;
-
     private String name;
 
     public GameListDTO(GameListEntity entity) {

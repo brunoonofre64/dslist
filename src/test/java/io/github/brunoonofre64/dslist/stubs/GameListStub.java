@@ -1,6 +1,7 @@
 package io.github.brunoonofre64.dslist.stubs;
 
 import io.github.brunoonofre64.dslist.domain.dto.GameListDTO;
+import io.github.brunoonofre64.dslist.domain.dto.GameListRequestDTO;
 import io.github.brunoonofre64.dslist.domain.entities.GameListEntity;
 
 import static io.github.brunoonofre64.dslist.utils.ConstantsUnitTest.ID_DEFAULT;
@@ -16,13 +17,11 @@ public class GameListStub {
                 .build();
     }
 
-    public GameListDTO buildGameListDTO() {
-        return GameListDTO
+    public GameListRequestDTO buildGameListRequestDTO() {
+        return GameListRequestDTO
                 .builder()
-                .id(ID_DEFAULT)
                 .name(TEXT_DEFAULT)
                 .build();
     }
-
 
 }

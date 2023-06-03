@@ -22,7 +22,7 @@ public class GameStub {
                 .longDescription(TEXT_DEFAULT)
                 .build();
     }
-    
+
 
     public GameRequestDTO buildGameRequestDTO() {
         return GameRequestDTO

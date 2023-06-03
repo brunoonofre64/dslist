@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum CodeMessage {
 
     EMPTY_LIST("EMPTY_LIST"),
-    GAME_NOT_FOUND("GAME_NOT_FOUND");
+    GAME_NOT_FOUND("GAME_NOT_FOUND"),
+    GAME_LIST_NOT_FOUND("GAME_LIST_NOT_FOUND");
 
     final String value;
 

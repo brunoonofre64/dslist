@@ -1,9 +1,11 @@
 package io.github.brunoonofre64.dslist.infrastructure.service;
 
 import io.github.brunoonofre64.dslist.domain.dto.GameListDTO;
+import io.github.brunoonofre64.dslist.domain.dto.GameListRequestDTO;
 import io.github.brunoonofre64.dslist.domain.entities.GameListEntity;
 import io.github.brunoonofre64.dslist.domain.enums.CodeMessage;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
+import io.github.brunoonofre64.dslist.domain.exceptions.GameListNotFoundException;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,5 +33,33 @@ public class GameListService {
                 .stream()
                 .map(GameListDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public GameListDTO save(GameListRequestDTO gameListRequestDTO) {
+        if (gameListRequestDTO == null) {
+            throw new GameListNotFoundException(CodeMessage.GAME_LIST_NOT_FOUND);
+        }
+
+        GameListEntity entity = gameListRequestDTO.toEntity();
+        GameListEntity entitySave = gameListRepository.save(entity);
+
+        return new GameListDTO(entitySave);
+    }
+
+    @Transactional
+    public GameListDTO update(String id, GameListRequestDTO gameListRequestDTO) {
+        if (gameListRequestDTO == null) {
+            throw new GameListNotFoundException(CodeMessage.GAME_LIST_NOT_FOUND);
+        }
+
+        GameListEntity entity = gameListRepository.findById(id)
+                .orElseThrow(() -> new GameListNotFoundException(CodeMessage.GAME_LIST_NOT_FOUND));
+
+        gameListRequestDTO.toEntity(entity);
+
+        GameListEntity entitySave = gameListRepository.save(entity);
+
+        return new GameListDTO(entitySave);
     }
 }
