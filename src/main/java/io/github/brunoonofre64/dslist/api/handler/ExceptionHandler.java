@@ -9,6 +9,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -119,6 +120,20 @@ public class ExceptionHandler  {
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(ex.getCause().toString())
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+
 
     private String getCodeMessage(String codigoMensagem) {
         return bundleMessageSource.getMessage(codigoMensagem, null, LocaleContextHolder.getLocale());

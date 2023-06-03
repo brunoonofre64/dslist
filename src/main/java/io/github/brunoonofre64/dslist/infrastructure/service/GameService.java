@@ -85,4 +85,13 @@ public class GameService {
 
         return new GameDTO(entity);
     }
+
+    @Transactional
+    public void delete(String id) {
+        try {
+            gameRepository.deleteById(id);
+        } catch (Exception ex) {
+            throw new GameNotFoundException(CodeMessage.GAME_NOT_FOUND);
+        }
+    }
 }

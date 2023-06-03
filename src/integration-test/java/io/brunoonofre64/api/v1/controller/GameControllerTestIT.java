@@ -1,9 +1,9 @@
 package io.brunoonofre64.api.v1.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.brunoonofre64.stubs.GameListStubIntegration;
 import io.brunoonofre64.stubs.GameStubIntegration;
 import io.brunoonofre64.utils.ConstantesIntegrationTest;
-import io.brunoonofre64.utils.ConstantesIntegrationTest.*;
 import io.github.brunoonofre64.dslist.DslistApplication;
 import io.github.brunoonofre64.dslist.domain.entities.BelongingEntity;
 import io.github.brunoonofre64.dslist.domain.entities.BelongingPK;
@@ -21,14 +21,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import static io.brunoonofre64.utils.ConstantesIntegrationTest.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -48,6 +48,8 @@ class GameControllerTestIT {
     private BelongingRepository belongingRepository;
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void seUp() {
@@ -59,9 +61,115 @@ class GameControllerTestIT {
     GameListStubIntegration gameListStub = new GameListStubIntegration();
 
     @Test
+    @DisplayName("Must save game with success and return status created")
+    void mustSaveGameWithSuccess() throws Exception {
+        String requestBody = objectMapper.writeValueAsString(gameStub.buildGameRequestDTO());
+
+        mockMvc.perform(post(WEB_METHOD_TEST.V1_GAME)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.title").value(TEXT_DEFAULT))
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("Must throw an error when try save with request null and return status bad request")
+    void mustThrowErrorWhenTrySaveWithRequestNull() throws Exception {
+
+        mockMvc.perform(post(WEB_METHOD_TEST.V1_GAME)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(""))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException()
+                        instanceof HttpMessageNotReadableException))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("Must update game with success and return status no content")
+    void mustUpdateGameWithSuccess() throws Exception {
+        GameEntity game = gameRepository.save(gameStub.buildGameEntity());
+        String expectedId = game.getId();
+
+        String requestBody = objectMapper.writeValueAsString(gameStub.buildGameRequestDTOUpdate());
+
+        mockMvc.perform(put(WEB_METHOD_TEST.V1_GAME
+                        .concat(SLASH)
+                        .concat(expectedId))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isNoContent())
+                .andExpect(jsonPath("$.title").value(TEXT_DEFAULT_2))
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("Must throw an error when try update with request null and return status bad request")
+    void mustThrowErrorWhenTryUpdateWithRequestNull() throws Exception {
+        GameEntity game = gameRepository.save(gameStub.buildGameEntity());
+        String expectedId = game.getId();
+
+        mockMvc.perform(put(WEB_METHOD_TEST.V1_GAME
+                        .concat(SLASH)
+                        .concat(expectedId))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(""))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException()
+                        instanceof HttpMessageNotReadableException))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("Must throw an error when try update with invalid id and return status bad request")
+    void mustThrowErrorWhenTryUpdateWithInvalidId() throws Exception {
+        String requestBody = objectMapper.writeValueAsString(gameStub.buildGameRequestDTO());
+
+        mockMvc.perform(put(WEB_METHOD_TEST.V1_GAME
+                        .concat(SLASH)
+                        .concat(INVALID_ID))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException()
+                        instanceof GameNotFoundException))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("Must delete game with success and return status no content")
+    void mustDeleteGameByIdWithSuccess() throws Exception {
+        GameEntity game = gameRepository.save(gameStub.buildGameEntity());
+        String expectedId = game.getId();
+
+        mockMvc.perform(delete(WEB_METHOD_TEST.V1_GAME
+                        .concat(SLASH)
+                        .concat(expectedId)))
+                .andExpect(status().isNoContent())
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("Must throw an error when try delete with invalid id and return status bad request")
+    void mustThrowErrorWhenTryDeleteWithInvalidId() throws Exception {
+        mockMvc.perform(delete(WEB_METHOD_TEST.V1_GAME
+                        .concat(SLASH)
+                        .concat(INVALID_ID))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException()
+                        instanceof GameNotFoundException))
+                .andDo(print());
+    }
+
+    @Test
     @DisplayName("Must find all games with success and return status ok")
     void mustFindAllGamesWithSuccessAndReturnOk() throws Exception {
-        GameEntity game = gameRepository.save(gameStub.buildGameEntity());
+        gameRepository.save(gameStub.buildGameEntity());
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_GAME)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -135,7 +243,7 @@ class GameControllerTestIT {
     void mustThrowErrorByListIdNotFound() throws Exception {
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_LIST
-                         .concat(SLASH)
+                        .concat(SLASH)
                         .concat(NONEXISTENT_ID)
                         .concat(SLASH)
                         .concat(GAMES))
