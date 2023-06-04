@@ -63,7 +63,8 @@ class GameControllerTestIT {
     @Test
     @DisplayName("Must save game with success and return status created")
     void mustSaveGameWithSuccess() throws Exception {
-        String requestBody = objectMapper.writeValueAsString(gameStub.buildGameRequestDTO());
+        GameListEntity gameList = gameListRepository.save(gameListStub.buildGameListEntity());
+        String requestBody = objectMapper.writeValueAsString(gameStub.buildGameRequestDTO(gameList.getId()));
 
         mockMvc.perform(post(WEB_METHOD_TEST.V1_GAME)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -126,7 +127,9 @@ class GameControllerTestIT {
     @Test
     @DisplayName("Must throw an error when try update with invalid id and return status bad request")
     void mustThrowErrorWhenTryUpdateWithInvalidId() throws Exception {
-        String requestBody = objectMapper.writeValueAsString(gameStub.buildGameRequestDTO());
+        GameListEntity gameList = gameListRepository.save(gameListStub.buildGameListEntity());
+        String requestBody = objectMapper.writeValueAsString(gameStub.buildGameRequestDTO(gameList.getId()));
+
 
         mockMvc.perform(put(WEB_METHOD_TEST.V1_GAME
                         .concat(SLASH)

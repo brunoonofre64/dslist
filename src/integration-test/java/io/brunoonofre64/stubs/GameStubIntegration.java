@@ -21,7 +21,7 @@ public class GameStubIntegration {
                 .build();
     }
 
-    public GameRequestDTO buildGameRequestDTO() {
+    public GameRequestDTO buildGameRequestDTO(String gameListId) {
         return GameRequestDTO
                 .builder()
                 .title(TEXT_DEFAULT)
@@ -32,6 +32,8 @@ public class GameStubIntegration {
                 .imgUrl(TEXT_DEFAULT)
                 .shortDescription(TEXT_DEFAULT)
                 .longDescription(TEXT_DEFAULT)
+                .gameListId(gameListId)
+                .gamePosition(1)
                 .build();
     }
 
@@ -46,6 +48,8 @@ public class GameStubIntegration {
                 .imgUrl(TEXT_DEFAULT_2)
                 .shortDescription(TEXT_DEFAULT_2)
                 .longDescription(TEXT_DEFAULT_2)
+                .gameListId(ID_DEFAULT)
+                .gamePosition(1)
                 .build();
     }
 }

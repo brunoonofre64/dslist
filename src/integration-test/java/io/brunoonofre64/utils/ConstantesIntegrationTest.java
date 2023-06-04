@@ -12,6 +12,7 @@ public interface ConstantesIntegrationTest {
     String GAMES = "games";
     String NONEXISTENT_ID = "123";
     String INVALID_ID = "INVALID_ID";
+    String ID_DEFAULT = "ID_DEFAULT";
 
     interface WEB_METHOD_TEST {
         String V1_GAME = "/games";

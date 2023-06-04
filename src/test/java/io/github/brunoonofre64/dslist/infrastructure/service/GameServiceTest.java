@@ -7,7 +7,10 @@ import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
 import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.projections.GameMinProjection;
+import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.BelongingRepository;
+import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameListRepository;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameRepository;
+import io.github.brunoonofre64.dslist.stubs.BelongingStub;
 import io.github.brunoonofre64.dslist.stubs.GameStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,6 +36,10 @@ class GameServiceTest {
     private GameService service;
     @Mock
     private GameRepository gameRepository;
+    @Mock
+    private BelongingRepository belongingRepository;
+    @Mock
+    private GameListRepository gameListRepository;
 
     private GameEntity gameEntity;
     private GameMinProjection gameMinProjection;
@@ -40,11 +47,12 @@ class GameServiceTest {
     private GameRequestDTO gameRequestDTOUpdate;
 
     GameStub gameStub = new GameStub();
+    BelongingStub belongingStub = new BelongingStub();
 
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        service = new GameService(gameRepository);
+        service = new GameService(gameRepository, belongingRepository, gameListRepository);
         this.buildArrangeOfTests();
     }
 
