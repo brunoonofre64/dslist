@@ -19,6 +19,8 @@ public class GameRequestDTO {
     private String imgUrl;
     private String shortDescription;
     private String longDescription;
+    private String gameListId;
+    private int gamePosition;
 
 
     public GameEntity toEntity() {

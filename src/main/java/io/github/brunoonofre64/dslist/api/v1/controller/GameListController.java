@@ -1,6 +1,7 @@
 package io.github.brunoonofre64.dslist.api.v1.controller;
 
 import io.github.brunoonofre64.dslist.domain.dto.GameListDTO;
+import io.github.brunoonofre64.dslist.domain.dto.GameListRequestDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
 import io.github.brunoonofre64.dslist.infrastructure.service.GameListService;
 import io.github.brunoonofre64.dslist.infrastructure.service.GameService;
@@ -17,6 +18,24 @@ public class GameListController {
 
     private final GameListService gameListService;
     private final GameService gameService;
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public GameListDTO save(@RequestBody GameListRequestDTO gameListRequestDTO) {
+        return gameListService.save(gameListRequestDTO);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public GameListDTO update(@PathVariable String id, @RequestBody GameListRequestDTO gameListRequestDTO) {
+        return gameListService.update(id, gameListRequestDTO);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable String id) {
+        gameListService.deleteById(id);
+    }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping

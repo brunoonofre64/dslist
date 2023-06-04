@@ -3,11 +3,17 @@ package io.github.brunoonofre64.dslist.infrastructure.service;
 import io.github.brunoonofre64.dslist.domain.dto.GameDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameRequestDTO;
+import io.github.brunoonofre64.dslist.domain.entities.BelongingEntity;
+import io.github.brunoonofre64.dslist.domain.entities.BelongingPK;
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
+import io.github.brunoonofre64.dslist.domain.entities.GameListEntity;
 import io.github.brunoonofre64.dslist.domain.enums.CodeMessage;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
+import io.github.brunoonofre64.dslist.domain.exceptions.GameListNotFoundException;
 import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.projections.GameMinProjection;
+import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.BelongingRepository;
+import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameListRepository;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +28,8 @@ import java.util.stream.Collectors;
 public class GameService {
 
     private final GameRepository gameRepository;
+    private final BelongingRepository belongingRepository;
+    private final GameListRepository gameListRepository;
 
     @Transactional(readOnly = true)
     public List<GameMinDTO> findAll() {
@@ -59,6 +67,7 @@ public class GameService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public GameDTO save(GameRequestDTO gameRequestDTO) {
         if (gameRequestDTO == null) {
             throw new GameNotFoundException(CodeMessage.GAME_NOT_FOUND);
@@ -66,7 +75,14 @@ public class GameService {
 
         GameEntity entity = gameRequestDTO.toEntity();
 
+        GameListEntity listEntity = gameListRepository.findById(gameRequestDTO.getGameListId())
+                .orElseThrow(() -> new GameListNotFoundException(CodeMessage.GAME_LIST_NOT_FOUND));
+
+        BelongingPK belongingPK = new BelongingPK(entity, listEntity);
+        BelongingEntity belonging = new BelongingEntity(belongingPK, gameRequestDTO.getGamePosition());
+
         gameRepository.save(entity);
+        belongingRepository.save(belonging);
 
         return new GameDTO(entity);
     }

@@ -62,4 +62,13 @@ public class GameListService {
 
         return new GameListDTO(entitySave);
     }
+
+    @Transactional
+    public void deleteById(String id) {
+        try {
+            gameListRepository.deleteById(id);
+        } catch (Exception ex) {
+            throw new GameListNotFoundException(CodeMessage.GAME_LIST_NOT_FOUND);
+        }
+    }
 }

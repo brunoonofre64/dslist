@@ -2,6 +2,7 @@ package io.github.brunoonofre64.dslist.api.handler;
 
 import io.github.brunoonofre64.dslist.api.handler.error.ErrorResponse;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
+import io.github.brunoonofre64.dslist.domain.exceptions.GameListNotFoundException;
 import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -133,7 +134,17 @@ public class ExceptionHandler  {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-
+    @org.springframework.web.bind.annotation.ExceptionHandler(GameListNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleGameListNotFoundException(GameListNotFoundException ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(this.getCodeMessage(ex.getMessage()))
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
 
     private String getCodeMessage(String codigoMensagem) {
         return bundleMessageSource.getMessage(codigoMensagem, null, LocaleContextHolder.getLocale());
