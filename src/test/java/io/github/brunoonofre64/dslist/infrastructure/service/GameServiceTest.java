@@ -3,7 +3,9 @@ package io.github.brunoonofre64.dslist.infrastructure.service;
 import io.github.brunoonofre64.dslist.domain.dto.GameDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameMinDTO;
 import io.github.brunoonofre64.dslist.domain.dto.GameRequestDTO;
+import io.github.brunoonofre64.dslist.domain.entities.BelongingEntity;
 import io.github.brunoonofre64.dslist.domain.entities.GameEntity;
+import io.github.brunoonofre64.dslist.domain.entities.GameListEntity;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
 import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.projections.GameMinProjection;
@@ -11,6 +13,7 @@ import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.BelongingR
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameListRepository;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameRepository;
 import io.github.brunoonofre64.dslist.stubs.BelongingStub;
+import io.github.brunoonofre64.dslist.stubs.GameListStub;
 import io.github.brunoonofre64.dslist.stubs.GameStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +30,7 @@ import static io.github.brunoonofre64.dslist.utils.ConstantsUnitTest.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class GameServiceTest {
@@ -45,8 +48,11 @@ class GameServiceTest {
     private GameMinProjection gameMinProjection;
     private GameRequestDTO gameRequestDTO;
     private GameRequestDTO gameRequestDTOUpdate;
+    private GameListEntity gameListEntity;
+    private BelongingEntity belongingEntity;
 
     GameStub gameStub = new GameStub();
+    GameListStub gameListStub = new GameListStub();
     BelongingStub belongingStub = new BelongingStub();
 
     @BeforeEach
@@ -59,7 +65,9 @@ class GameServiceTest {
     @Test
     @DisplayName("Must save new game with success")
     void mustSaveNewGameWitchSuccess() {
+        when(gameListRepository.findById(anyString())).thenReturn(Optional.ofNullable(gameListEntity));
         when(gameRepository.save(any())).thenReturn(gameEntity);
+        when(belongingRepository.save(any())).thenReturn(belongingEntity);
 
         GameDTO response = service.save(gameRequestDTO);
 
@@ -103,6 +111,29 @@ class GameServiceTest {
     void mustThrowAnErrorToTryUpdateByInvalidId() {
         Throwable ex = assertThrows(GameNotFoundException.class,
                 () -> service.update(INVALID_ID, gameRequestDTOUpdate));
+
+        assertEquals(GameNotFoundException.class, ex.getClass());
+    }
+
+    @Test
+    @DisplayName("Must delete game by id with Success")
+    void mustDeleteGameByIdWithSuccesss() {
+        doNothing().when(gameRepository).deleteById(ID_DEFAULT);
+
+        gameRepository.deleteById(ID_DEFAULT);
+
+        verify(gameRepository).deleteById(ID_DEFAULT);
+        verify(gameRepository, times(1)).deleteById(ID_DEFAULT);
+        verify(gameRepository, atLeastOnce()).deleteById(ID_DEFAULT);
+    }
+
+    @Test
+    @DisplayName("Must throw an error to try delete with invalid id")
+    void mustThrowAnErrorToTryDeleteByInvalidId() {
+        doThrow(GameNotFoundException.class).when(gameRepository).deleteById(INVALID_ID);
+
+        Throwable ex = assertThrows(GameNotFoundException.class,
+                () -> service.delete(INVALID_ID));
 
         assertEquals(GameNotFoundException.class, ex.getClass());
     }
@@ -175,5 +206,7 @@ class GameServiceTest {
         gameMinProjection = gameStub.buildGameMinProjection();
         gameRequestDTO = gameStub.buildGameRequestDTO();
         gameRequestDTOUpdate = gameStub.buildGameRequestDTOUpdate();
+        gameListEntity = gameListStub.buildGameListEntity();
+        belongingEntity = belongingStub.buildBelongingEntity();
     }
 }

@@ -35,6 +35,8 @@ public class GameStub {
                 .imgUrl(TEXT_DEFAULT)
                 .shortDescription(TEXT_DEFAULT)
                 .longDescription(TEXT_DEFAULT)
+                .gameListId(ID_DEFAULT)
+                .gamePosition(1)
                 .build();
     }
 
@@ -49,6 +51,8 @@ public class GameStub {
                 .imgUrl(TEXT_DEFAULT_2)
                 .shortDescription(TEXT_DEFAULT_2)
                 .longDescription(TEXT_DEFAULT_2)
+                .gameListId(ID_DEFAULT)
+                .gamePosition(1)
                 .build();
     }
 

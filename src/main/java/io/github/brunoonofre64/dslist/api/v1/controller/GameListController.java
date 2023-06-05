@@ -34,7 +34,7 @@ public class GameListController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable String id) {
-        gameListService.deleteById(id);
+        gameListService.delete(id);
     }
 
     @ResponseStatus(HttpStatus.OK)

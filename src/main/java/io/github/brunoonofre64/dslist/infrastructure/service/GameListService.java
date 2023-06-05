@@ -64,7 +64,7 @@ public class GameListService {
     }
 
     @Transactional
-    public void deleteById(String id) {
+    public void delete(String id) {
         try {
             gameListRepository.deleteById(id);
         } catch (Exception ex) {

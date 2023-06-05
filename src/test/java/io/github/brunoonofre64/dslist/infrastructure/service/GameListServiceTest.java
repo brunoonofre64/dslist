@@ -22,7 +22,8 @@ import static io.github.brunoonofre64.dslist.utils.ConstantsUnitTest.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
 
 @SpringBootTest
 class GameListServiceTest {
@@ -92,6 +93,29 @@ class GameListServiceTest {
     void mustThrowErrorWhenTryUpdateWithIvalidId() {
         Throwable ex = assertThrows(GameListNotFoundException.class,
                 () -> gameListService.update(INVALID_ID, gameListRequestDTO));
+
+        assertEquals(GameListNotFoundException.class, ex.getClass());
+    }
+
+    @Test
+    @DisplayName("Must delete game list by id with Success")
+    void mustDeleteGameListByIdWithSuccesss() {
+        doNothing().when(gameListRepository).deleteById(ID_DEFAULT);
+
+        gameListRepository.deleteById(ID_DEFAULT);
+
+        verify(gameListRepository).deleteById(ID_DEFAULT);
+        verify(gameListRepository, times(1)).deleteById(ID_DEFAULT);
+        verify(gameListRepository, atLeastOnce()).deleteById(ID_DEFAULT);
+    }
+
+    @Test
+    @DisplayName("Must throw an error to try delete with invalid id")
+    void mustThrowAnErrorToTryDeleteByInvalidId() {
+        doThrow(GameListNotFoundException.class).when(gameListRepository).deleteById(INVALID_ID);
+
+        Throwable ex = assertThrows(GameListNotFoundException.class,
+                () -> gameListService.delete(INVALID_ID));
 
         assertEquals(GameListNotFoundException.class, ex.getClass());
     }
