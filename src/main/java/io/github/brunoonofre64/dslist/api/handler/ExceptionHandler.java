@@ -4,6 +4,7 @@ import io.github.brunoonofre64.dslist.api.handler.error.ErrorResponse;
 import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
 import io.github.brunoonofre64.dslist.domain.exceptions.GameListNotFoundException;
 import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
+import io.github.brunoonofre64.dslist.domain.exceptions.UserListIsEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -136,6 +137,18 @@ public class ExceptionHandler  {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(GameListNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleGameListNotFoundException(GameListNotFoundException ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(this.getCodeMessage(ex.getMessage()))
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserListIsEmpty.class)
+    public ResponseEntity<ErrorResponse> handleUserListIsEmpty(UserListIsEmpty ex) {
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .error(BAD_REQUEST)
