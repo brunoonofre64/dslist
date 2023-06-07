@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("TEST-H2")
 @AutoConfigureMockMvc
-class GameListControllerTestIT {
+class GameListControllerTestIT extends IntegrationTestBase {
 
     @Autowired
     private GameListRepository gameListRepository;
@@ -38,9 +38,11 @@ class GameListControllerTestIT {
     @Autowired
     private ObjectMapper objectMapper;
 
+
     @BeforeEach
-    void seUp() {
+    public void setUp() {
         gameListRepository.deleteAll();
+        super.buildUserWithAuthorities();
     }
 
     GameListStub gameListStub = new GameListStub();
@@ -52,11 +54,11 @@ class GameListControllerTestIT {
 
         mockMvc.perform(post(WEB_METHOD_TEST.V1_LIST)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(requestBody))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value(TEXT_DEFAULT))
                 .andDo(print());
-
     }
 
     @Test
@@ -65,6 +67,7 @@ class GameListControllerTestIT {
 
         mockMvc.perform(post(WEB_METHOD_TEST.V1_LIST)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(""))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
@@ -84,6 +87,7 @@ class GameListControllerTestIT {
                         .concat(SLASH)
                         .concat(expectedId))
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(requestBody))
                 .andExpect(status().isNoContent())
                 .andExpect(jsonPath("$.name").value(TEXT_DEFAULT_2))
@@ -101,6 +105,7 @@ class GameListControllerTestIT {
                         .concat(SLASH)
                         .concat(expectedId))
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(""))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
@@ -119,6 +124,7 @@ class GameListControllerTestIT {
                         .concat(SLASH)
                         .concat(INVALID_ID))
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(requestBody))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
@@ -134,7 +140,8 @@ class GameListControllerTestIT {
 
         mockMvc.perform(delete(WEB_METHOD_TEST.V1_LIST
                         .concat(SLASH)
-                        .concat(expectedId)))
+                        .concat(expectedId))
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isNoContent())
                 .andDo(print());
     }
@@ -145,7 +152,8 @@ class GameListControllerTestIT {
         mockMvc.perform(delete(WEB_METHOD_TEST.V1_LIST
                         .concat(SLASH)
                         .concat(INVALID_ID))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
                         instanceof GameListNotFoundException))
@@ -158,7 +166,8 @@ class GameListControllerTestIT {
         gameListRepository.save(gameListStub.buildGameListEntity());
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_LIST)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].name").value(TEXT_DEFAULT))
                 .andDo(print());
@@ -169,7 +178,8 @@ class GameListControllerTestIT {
     void mustThrowErrorByGameListdNotFound() throws Exception {
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_LIST)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
                         instanceof EmptyListException))

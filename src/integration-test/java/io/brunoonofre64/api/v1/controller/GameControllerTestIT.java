@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("TEST-H2")
 @AutoConfigureMockMvc
-class GameControllerTestIT {
+class GameControllerTestIT extends IntegrationTestBase {
 
     @Autowired
     private GameRepository gameRepository;
@@ -54,7 +54,7 @@ class GameControllerTestIT {
     @BeforeEach
     void seUp() {
         gameRepository.deleteAll();
-
+        super.buildUserWithAuthorities();
     }
 
     GameStubIntegration gameStub = new GameStubIntegration();
@@ -68,6 +68,7 @@ class GameControllerTestIT {
 
         mockMvc.perform(post(WEB_METHOD_TEST.V1_GAME)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(requestBody))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.title").value(TEXT_DEFAULT))
@@ -81,6 +82,7 @@ class GameControllerTestIT {
 
         mockMvc.perform(post(WEB_METHOD_TEST.V1_GAME)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(""))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
@@ -100,6 +102,7 @@ class GameControllerTestIT {
                         .concat(SLASH)
                         .concat(expectedId))
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(requestBody))
                 .andExpect(status().isNoContent())
                 .andExpect(jsonPath("$.title").value(TEXT_DEFAULT_2))
@@ -117,6 +120,7 @@ class GameControllerTestIT {
                         .concat(SLASH)
                         .concat(expectedId))
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(""))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
@@ -135,6 +139,7 @@ class GameControllerTestIT {
                         .concat(SLASH)
                         .concat(INVALID_ID))
                         .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader())
                         .content(requestBody))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
@@ -150,7 +155,8 @@ class GameControllerTestIT {
 
         mockMvc.perform(delete(WEB_METHOD_TEST.V1_GAME
                         .concat(SLASH)
-                        .concat(expectedId)))
+                        .concat(expectedId))
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isNoContent())
                 .andDo(print());
 
@@ -162,7 +168,8 @@ class GameControllerTestIT {
         mockMvc.perform(delete(WEB_METHOD_TEST.V1_GAME
                         .concat(SLASH)
                         .concat(INVALID_ID))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
                         instanceof GameNotFoundException))
@@ -175,7 +182,8 @@ class GameControllerTestIT {
         gameRepository.save(gameStub.buildGameEntity());
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_GAME)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].title").value(TEXT_DEFAULT))
                 .andDo(print());
@@ -186,7 +194,8 @@ class GameControllerTestIT {
     void mustThrowErrorByEmptyGameList() throws Exception {
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_GAME)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
                         instanceof EmptyListException))
@@ -200,7 +209,8 @@ class GameControllerTestIT {
         String expectedId = game.getId();
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_GAME.concat(SLASH).concat(expectedId))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value(TEXT_DEFAULT))
                 .andDo(print());
@@ -211,7 +221,8 @@ class GameControllerTestIT {
     void mustThrowErrorByGameNotFound() throws Exception {
 
         mockMvc.perform(get(WEB_METHOD_TEST.V1_GAME.concat(SLASH).concat(NONEXISTENT_ID))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
                         instanceof GameNotFoundException))
@@ -235,7 +246,8 @@ class GameControllerTestIT {
                         .concat(expectedId)
                         .concat(SLASH)
                         .concat(GAMES))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].title").value(TEXT_DEFAULT))
                 .andDo(print());
@@ -250,11 +262,11 @@ class GameControllerTestIT {
                         .concat(NONEXISTENT_ID)
                         .concat(SLASH)
                         .concat(GAMES))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .headers(getAuthorizationHeader()))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException()
                         instanceof EmptyListException))
                 .andDo(print());
     }
-
 }

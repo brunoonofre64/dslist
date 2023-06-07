@@ -13,9 +13,12 @@ public interface ConstantesIntegrationTest {
     String NONEXISTENT_ID = "123";
     String INVALID_ID = "INVALID_ID";
     String ID_DEFAULT = "ID_DEFAULT";
+    String EMAIL = "admin@admin";
+    String PASSWORD = "admin";
+    String ROLE_ADMIN = "ROLE_ADMIN";
 
     interface WEB_METHOD_TEST {
-        String V1_GAME = "/games";
-        String V1_LIST = "/lists";
+        String V1_GAME = "/game";
+        String V1_LIST = "/list";
     }
 }

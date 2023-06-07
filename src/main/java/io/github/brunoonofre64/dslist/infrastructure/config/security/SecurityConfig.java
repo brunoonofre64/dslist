@@ -21,7 +21,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String ADMIN = "ADMIN";
+    private static final String ADMIN = "ROLE_ADMIN";
     private static final String USER = "USER";
     private static final String GAME_END_POINT = "*/game/**";
     private static final String GAME_LIST_END_POINT = "*/list/**";
