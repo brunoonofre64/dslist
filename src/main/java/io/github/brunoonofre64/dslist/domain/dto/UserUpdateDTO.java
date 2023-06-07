@@ -1,8 +1,6 @@
 package io.github.brunoonofre64.dslist.domain.dto;
 
-import io.github.brunoonofre64.dslist.domain.entities.UserEntity;
 import lombok.*;
-import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
@@ -13,16 +11,11 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequestDTO {
+public class UserUpdateDTO {
 
     @Email
     private String email = null;
-    private String password;
+    private String newPassword;
     private List<String> roleId = new ArrayList<>();
-
-    public UserEntity toEntity() {
-        UserEntity entity = new UserEntity();
-        BeanUtils.copyProperties(this, entity);
-        return entity;
-    }
+    private String currentPassword;
 }

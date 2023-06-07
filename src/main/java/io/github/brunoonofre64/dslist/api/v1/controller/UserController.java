@@ -2,6 +2,7 @@ package io.github.brunoonofre64.dslist.api.v1.controller;
 
 import io.github.brunoonofre64.dslist.domain.dto.UserDTO;
 import io.github.brunoonofre64.dslist.domain.dto.UserRequestDTO;
+import io.github.brunoonofre64.dslist.domain.dto.UserUpdateDTO;
 import io.github.brunoonofre64.dslist.infrastructure.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,8 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping
-    public UserDTO update(@RequestParam(required = false) String email, @RequestBody UserRequestDTO userRequestDTO) {
-        return userService.update(email, userRequestDTO);
+    public UserDTO update(@RequestParam(required = false) String email, @RequestBody UserUpdateDTO userUpdateDTO) {
+        return userService.update(email, userUpdateDTO);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

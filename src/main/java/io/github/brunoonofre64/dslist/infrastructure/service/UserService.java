@@ -2,6 +2,7 @@ package io.github.brunoonofre64.dslist.infrastructure.service;
 
 import io.github.brunoonofre64.dslist.domain.dto.UserDTO;
 import io.github.brunoonofre64.dslist.domain.dto.UserRequestDTO;
+import io.github.brunoonofre64.dslist.domain.dto.UserUpdateDTO;
 import io.github.brunoonofre64.dslist.domain.entities.RoleEntity;
 import io.github.brunoonofre64.dslist.domain.entities.UserEntity;
 import io.github.brunoonofre64.dslist.domain.enums.CodeMessage;
@@ -69,32 +70,24 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDTO update(String email, UserRequestDTO userRequestDTO) {
-        if (userRequestDTO.getEmail() != null && userRepository.existsByEmail(userRequestDTO.getEmail())) {
+    public UserDTO update(String email, UserUpdateDTO userUpdateDTO) {
+        if (userUpdateDTO.getEmail() != null && userRepository.existsByEmail(userUpdateDTO.getEmail())) {
             throw new UsernameAlreadyExists(CodeMessage.USERNAME_ALREADY_EXISTS);
         }
 
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(CodeMessage.USER_NOT_FOUND.getValue()));
 
-        if (userRequestDTO.getRoleId() != null && !CollectionUtils.isEmpty(userRequestDTO.getRoleId())) {
-            List<RoleEntity> roleEntity = roleRepository.findByIdIn(userRequestDTO.getRoleId());
+        if (userUpdateDTO.getRoleId() != null && !CollectionUtils.isEmpty(userUpdateDTO.getRoleId())) {
+            List<RoleEntity> roleEntity = roleRepository.findByIdIn(userUpdateDTO.getRoleId());
 
             if (CollectionUtils.isEmpty(roleEntity)) {
                 throw new RoleEmptyException(CodeMessage.ROLE_NOT_FOUND);
             }
             user.setRoles(roleEntity);
         }
+        this.validateBeforeUserUpdate(userUpdateDTO, user);
 
-        if (!passwordEncoder.matches(userRequestDTO.getCurrentPassword(), user.getPassword())) {
-            throw new InvalidPasswordException(CodeMessage.CURRENT_PASSWORD_INCORRECT);
-        }
-
-        if (userRequestDTO.getEmail() != null) {
-            user.setEmail(userRequestDTO.getEmail());
-        }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
         return new UserDTO(user);
@@ -119,5 +112,17 @@ public class UserService implements UserDetailsService {
                 .stream()
                 .map(UserDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    private void validateBeforeUserUpdate(UserUpdateDTO userUpdateDTO, UserEntity user) {
+        if (!passwordEncoder.matches(userUpdateDTO.getCurrentPassword(), user.getPassword())) {
+            throw new InvalidPasswordException(CodeMessage.CURRENT_PASSWORD_INCORRECT);
+        }
+        if (userUpdateDTO.getEmail() != null) {
+            user.setEmail(userUpdateDTO.getEmail());
+        }
+        if (userUpdateDTO.getNewPassword() != null) {
+            user.setPassword(passwordEncoder.encode(userUpdateDTO.getNewPassword()));
+        }
     }
 }
