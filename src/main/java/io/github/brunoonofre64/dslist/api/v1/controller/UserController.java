@@ -22,9 +22,22 @@ public class UserController {
         return userService.save(userRequestDTO);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping
+    public UserDTO update(@RequestParam(required = false) String email, @RequestBody UserRequestDTO userRequestDTO) {
+        return userService.update(email, userRequestDTO);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping
+    public void delete(@RequestParam String email) {
+        userService.delete(email);
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<UserDTO> findAll() {
         return userService.findAll();
     }
+
 }

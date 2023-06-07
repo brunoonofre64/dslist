@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,8 +18,10 @@ import javax.validation.constraints.Email;
 public class UserRequestDTO {
 
     @Email
-    private String email;
+    private String email = null;
     private String password;
+    private List<String> roleId = new ArrayList<>();
+    private String currentPassword = null;
 
     public UserEntity toEntity() {
         UserEntity entity = new UserEntity();

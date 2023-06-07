@@ -23,3 +23,12 @@ INSERT INTO tb_belonging (list_id, game_id, position) VALUES ('e902893a-9e23-431
 INSERT INTO tb_belonging (list_id, game_id, position) VALUES ('e902893a-9e23-4314-a63b-6207b5dce5a0', '76aca6b0-222c-4ff8-8f2d-613dfcd557f6', 2);
 INSERT INTO tb_belonging (list_id, game_id, position) VALUES ('e902893a-9e23-4314-a63b-6207b5dce5a0', '33ca655f-a8c9-447e-b58a-1d101c6c9ba1', 3);
 INSERT INTO tb_belonging (list_id, game_id, position) VALUES ('e902893a-9e23-4314-a63b-6207b5dce5a0', '134fa957-71dd-4d02-9adb-fa19e2660f3e', 4);
+
+INSERT INTO tb_user (id ,email, password) VALUES ('b3023e37-a798-44af-b0f5-242d7f6203a5', 'admin@admin', '$2a$12$YBiMBRZIBIyvuS/.N0ArrebyPCoUfgUBtzIn31cp84f77odNj7KDS');
+INSERT INTO tb_user (id ,email, password) VALUES ('f0117312-0577-4e66-8cee-9ae09b072a59', 'guest@guest', '$2a$12$w5.ClXkJqT8RAExDWFd01Or/S9AyIIytgHfWZDloA5clWqXPxoHqi');
+
+INSERT INTO tb_role (id ,role_name) VALUES ('abf7e5e1-623a-4d74-b3dc-d8c440504dd2', 'ROLE_ADMIN');
+INSERT INTO tb_role (id ,role_name) VALUES ('2067e2de-8b13-450a-a8ea-7a614d64f68d', 'ROLE_USER');
+
+INSERT INTO tb_user_roles (user_id ,role_id) VALUES ('b3023e37-a798-44af-b0f5-242d7f6203a5', 'abf7e5e1-623a-4d74-b3dc-d8c440504dd2');
+INSERT INTO tb_user_roles (user_id ,role_id) VALUES ('f0117312-0577-4e66-8cee-9ae09b072a59', '2067e2de-8b13-450a-a8ea-7a614d64f68d');

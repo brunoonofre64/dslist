@@ -1,10 +1,7 @@
 package io.github.brunoonofre64.dslist.api.handler;
 
 import io.github.brunoonofre64.dslist.api.handler.error.ErrorResponse;
-import io.github.brunoonofre64.dslist.domain.exceptions.EmptyListException;
-import io.github.brunoonofre64.dslist.domain.exceptions.GameListNotFoundException;
-import io.github.brunoonofre64.dslist.domain.exceptions.GameNotFoundException;
-import io.github.brunoonofre64.dslist.domain.exceptions.UserListIsEmpty;
+import io.github.brunoonofre64.dslist.domain.exceptions.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -149,6 +146,54 @@ public class ExceptionHandler  {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(UserListIsEmpty.class)
     public ResponseEntity<ErrorResponse> handleUserListIsEmpty(UserListIsEmpty ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(this.getCodeMessage(ex.getMessage()))
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidPasswordException(InvalidPasswordException ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(this.getCodeMessage(ex.getMessage()))
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UsernameAlreadyExists.class)
+    public ResponseEntity<ErrorResponse> handleUsernameAlreadyExists(UsernameAlreadyExists ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(this.getCodeMessage(ex.getMessage()))
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RoleEmptyException.class)
+    public ResponseEntity<ErrorResponse> handleRoleEmptyException(RoleEmptyException ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(this.getCodeMessage(ex.getMessage()))
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RoleAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleRoleAlreadyExistsException(RoleAlreadyExistsException ex) {
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .error(BAD_REQUEST)
