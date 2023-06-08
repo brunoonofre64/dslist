@@ -1,5 +1,6 @@
 package io.github.brunoonofre64.dslist.api.v1.controller;
 
+import io.github.brunoonofre64.dslist.domain.dto.PasswordDTO;
 import io.github.brunoonofre64.dslist.domain.dto.UserDTO;
 import io.github.brunoonofre64.dslist.domain.dto.UserRequestDTO;
 import io.github.brunoonofre64.dslist.domain.dto.UserUpdateDTO;
@@ -31,8 +32,8 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
-    public void delete(@RequestParam String email) {
-        userService.delete(email);
+    public void delete(@RequestParam String email,@RequestBody PasswordDTO password) {
+        userService.delete(email, password);
     }
 
     @ResponseStatus(HttpStatus.OK)

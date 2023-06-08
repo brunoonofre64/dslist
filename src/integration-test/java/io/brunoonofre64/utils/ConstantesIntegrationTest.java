@@ -15,10 +15,18 @@ public interface ConstantesIntegrationTest {
     String ID_DEFAULT = "ID_DEFAULT";
     String EMAIL = "admin@admin";
     String PASSWORD = "admin";
+    String PASSWORD_2 = "admin_2";
     String ROLE_ADMIN = "ROLE_ADMIN";
+    String USER_EMAIL = "user@user";
+    String GUEST_EMAIL = "guest@guest";
+    String EMAIL_PARAM = "?email=";
+    String USER = "USER";
+    String ADMIN = "ADMIN";
 
     interface WEB_METHOD_TEST {
         String V1_GAME = "/game";
         String V1_LIST = "/list";
+        String V1_USER = "/user";
+        String V1_ROLE = "/role";
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
-public class ExceptionHandler  {
+public class ExceptionHandler {
 
     private final ReloadableResourceBundleMessageSource bundleMessageSource;
 
@@ -30,7 +31,7 @@ public class ExceptionHandler  {
     private static final LocalDateTime TIMESTAMP = LocalDateTime.now();
 
 
-   @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
@@ -194,6 +195,18 @@ public class ExceptionHandler  {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(RoleAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleRoleAlreadyExistsException(RoleAlreadyExistsException ex) {
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .error(BAD_REQUEST)
+                .timestamp(TIMESTAMP)
+                .codeStatus(HttpStatus.BAD_REQUEST.value())
+                .message(this.getCodeMessage(ex.getMessage()))
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUsernameNotFoundException(UsernameNotFoundException ex) {
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .error(BAD_REQUEST)

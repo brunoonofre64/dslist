@@ -18,7 +18,7 @@ public class RoleService {
 
     @Transactional
     public void save(RoleRequestDTO roleRequestDTO) {
-        if (roleRequestDTO == null) {
+        if (roleRequestDTO == null || roleRequestDTO.getRoleName() == null) {
             throw new RoleEmptyException(CodeMessage.ROLE_EMPTY);
         }
 

@@ -1,5 +1,6 @@
 package io.github.brunoonofre64.dslist.infrastructure.service;
 
+import io.github.brunoonofre64.dslist.domain.dto.PasswordDTO;
 import io.github.brunoonofre64.dslist.domain.dto.UserDTO;
 import io.github.brunoonofre64.dslist.domain.dto.UserRequestDTO;
 import io.github.brunoonofre64.dslist.domain.dto.UserUpdateDTO;
@@ -49,6 +50,7 @@ public class UserService implements UserDetailsService {
         return new User(user.getEmail(), user.getPassword(), authorities);
     }
 
+    @Transactional
     public UserDTO save(UserRequestDTO userRequestDTO) {
         if (userRequestDTO.getEmail() != null && userRepository.existsByEmail(userRequestDTO.getEmail())) {
             throw new UsernameAlreadyExists(CodeMessage.USERNAME_ALREADY_EXISTS);
@@ -93,14 +95,19 @@ public class UserService implements UserDetailsService {
         return new UserDTO(user);
     }
 
-    public void delete(String email) {
-        try {
-            userRepository.deleteByEmail(email);
-        } catch (Exception ex) {
-            throw new UsernameNotFoundException(CodeMessage.USER_NOT_FOUND.getValue());
+    @Transactional
+    public void delete(String email, PasswordDTO password) {
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(CodeMessage.USER_NOT_FOUND.getValue()));
+
+        if (!passwordEncoder.matches(password.getCurrentPassword(), user.getPassword())) {
+            throw new InvalidPasswordException(CodeMessage.CURRENT_PASSWORD_INCORRECT);
         }
+
+        userRepository.delete(user);
     }
 
+    @Transactional(readOnly = true)
     public List<UserDTO> findAll() {
         List<UserEntity> users = userRepository.findAll();
 

@@ -1,23 +1,17 @@
 package io.brunoonofre64.api.v1.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.brunoonofre64.dslist.infrastructure.config.security.JwtUtil;
 import io.github.brunoonofre64.dslist.DslistApplication;
 import io.github.brunoonofre64.dslist.domain.entities.RoleEntity;
 import io.github.brunoonofre64.dslist.domain.entities.UserEntity;
-import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.GameListRepository;
+import io.github.brunoonofre64.dslist.infrastructure.config.security.JwtUtil;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.RoleRepository;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
 
@@ -31,13 +25,10 @@ public class IntegrationTestBase {
 
     @Autowired
     protected UserRepository userRepository;
-
     @Autowired
     protected RoleRepository roleRepository;
-
     @Autowired
     protected PasswordEncoder passwordEncoder;
-
     @Autowired
     protected JwtUtil jwtUtil;
 
@@ -66,5 +57,4 @@ public class IntegrationTestBase {
         headers.set("Authorization", "Bearer " + jwtToken);
         return headers;
     }
-
 }

@@ -1,0 +1,14 @@
+package io.github.brunoonofre64.dslist.domain.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class PasswordDTO {
+    private String currentPassword;
+}

@@ -1,12 +1,14 @@
 package io.github.brunoonofre64.dslist.domain.dto;
 
 import io.github.brunoonofre64.dslist.domain.entities.RoleEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoleRequestDTO {
     private String roleName;
 
