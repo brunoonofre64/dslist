@@ -7,7 +7,6 @@ import io.github.brunoonofre64.dslist.DslistApplication;
 import io.github.brunoonofre64.dslist.domain.dto.RoleRequestDTO;
 import io.github.brunoonofre64.dslist.domain.exceptions.RoleAlreadyExistsException;
 import io.github.brunoonofre64.dslist.domain.exceptions.RoleEmptyException;
-import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.RoleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,15 +32,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class RoleControllerTestIT extends IntegrationTestBase {
 
     @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     public void setUp() {
-        roleRepository.deleteAll();
         super.buildUserWithAuthorities();
     }
 
@@ -63,8 +59,8 @@ class RoleControllerTestIT extends IntegrationTestBase {
     @Test
     @DisplayName("Must thrown an error by role is null and return status bad request")
     void mustThrowErrorByRoleNull() throws Exception {
-       RoleRequestDTO roleRequestDTO =  roleStub.buildRoleRequestDTO();
-       roleRequestDTO.setRoleName(null);
+        RoleRequestDTO roleRequestDTO = roleStub.buildRoleRequestDTO();
+        roleRequestDTO.setRoleName(null);
         String requestBody = objectMapper.writeValueAsString(roleRequestDTO);
 
         mockMvc.perform(post(WEB_METHOD_TEST.V1_ROLE)
@@ -79,8 +75,8 @@ class RoleControllerTestIT extends IntegrationTestBase {
 
     @Test
     @DisplayName("Must thrown an error by role already exists and return status bad request")
-    void mustThrowErrorByRoleAlradyExists() throws Exception {
-        RoleRequestDTO roleRequestDTO =  roleStub.buildRoleRequestDTO();
+    void mustThrowErrorByRoleAlreadyExists() throws Exception {
+        RoleRequestDTO roleRequestDTO = roleStub.buildRoleRequestDTO();
         roleRequestDTO.setRoleName(ADMIN);
         String requestBody = objectMapper.writeValueAsString(roleRequestDTO);
 

@@ -1,27 +1,22 @@
 package io.brunoonofre64.api.v1.controller;
 
-import io.github.brunoonofre64.dslist.DslistApplication;
 import io.github.brunoonofre64.dslist.domain.entities.RoleEntity;
 import io.github.brunoonofre64.dslist.domain.entities.UserEntity;
 import io.github.brunoonofre64.dslist.infrastructure.config.security.JwtUtil;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.RoleRepository;
 import io.github.brunoonofre64.dslist.infrastructure.jpa.repositories.UserRepository;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Collections;
 
 import static io.brunoonofre64.utils.ConstantesIntegrationTest.*;
 
-@SpringBootTest(classes = DslistApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("TEST-H2")
-@AutoConfigureMockMvc
-public class IntegrationTestBase {
+
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+abstract class IntegrationTestBase {
 
     @Autowired
     protected UserRepository userRepository;
