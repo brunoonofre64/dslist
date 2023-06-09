@@ -468,6 +468,14 @@ erDiagram
 * *****PROD*****
 * *****https://dslist-production-df92.up.railway.app/swagger-ui/index.html*****
 
+#### A API está protegida por autenticação e autorização via JWT, que tenha autorização de realizar operações de entrada de dados, é necessário que usando o postman, você no endpoint ***/login*** envie um método POST, onde selecionando o ***Body*** e a opção ***x-www-form-urlencoded*** você insira ***email*** e ***senha*** de acesso, como mostra o exemplo abaixo:
 
+
+Key  | Value
+------------ | ---------------
+email | guest@guest
+password | guest
+
+#### Agora use o ***access_token*** gerado para acessar via ***Bearer*** ***Token.***
 
 

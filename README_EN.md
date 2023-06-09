@@ -471,4 +471,17 @@ erDiagram
 * *****https://dslist-production-df92.up.railway.app/swagger-ui/index.html*****
 
 
+#### A API está protegida por autenticação e autorização via JWT, que tenha autorização de realizar operações de entrada de dados, é necessário que usando o postman, você no endpoint ***/login*** envie um método POST, onde selecionando o ***Body*** e a opção ***x-www-form-urlencoded*** você insira ***email*** e ***senha*** de acesso, como mostra o exemplo abaixo:
+#### The API is protected by authentication and authorization via JWT. To have the authorization to carry out data entry operations, it is necessary that, using Postman, you send a POST method to the ***login*** endpoint. By selecting the ***Body*** and the ***x-www-form-urlencoded*** option, you must enter your access ***email*** and ***password***, as shown in the example below:
+
+
+Key  | Value
+------------ | ---------------
+email | guest@guest
+password | guest
+
+#### Now use the generated ***access_token*** to access via ***Bearer*** ***Token.***
+
+
+
 
