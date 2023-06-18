@@ -1,87 +1,453 @@
 {
 	"info": {
-		"_postman_id": "73f9cf55-a191-48d4-9e3f-88c341daff4d",
+		"_postman_id": "a3ce7b0f-2da0-4498-b45b-f814bf1892d3",
 		"name": "dslist - collection",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20136248"
 	},
 	"item": [
 		{
 			"name": "local",
 			"item": [
 				{
-					"name": "buscar games list",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/lists",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"lists"
-							]
+					"name": "Game",
+					"item": [
+						{
+							"name": "buscar games",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local_host}}/game",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"game"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local_host}}/game/401edbe8-f5ca-11ed-b67e-0242ac120002",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"game",
+										"401edbe8-f5ca-11ed-b67e-0242ac120002"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Game",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"TESTE\",\r\n    \"score\": 4.8,\r\n    \"year\": 2012,\r\n    \"genre\": \"Role-playing (RPG), Shooter\",\r\n    \"platforms\": \"XBox, Playstation, PC\",\r\n    \"imgUrl\": \"https://raw.githubusercontent.com/devsuperior/java-spring-dslist/main/resources/1.png\",\r\n    \"shortDescription\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit esse officiis corrupti unde repellat non quibusdam! Id nihil itaque ipsum!\",\r\n    \"longDescription\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus dolorum illum placeat eligendi, quis maiores veniam. Incidunt dolorum, nisi deleniti dicta odit voluptatem nam provident temporibus reprehenderit blanditiis consectetur tenetur. Dignissimos blanditiis quod corporis iste, aliquid perspiciatis architecto quasi tempore ipsam voluptates ea ad distinctio, sapiente qui, amet quidem culpa.\",\r\n    \"gameListId\" : \"6ba7b810-9dad-11d1-80b4-00c04fd430c8\",\r\n    \"gamePosition\" : 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_host}}/game",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"game"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "atualizar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"UPDATEEEEEEEE\",\r\n    \"score\": 4.8,\r\n    \"year\": 2012,\r\n    \"genre\": \"Role-playing (RPG), Shooter\",\r\n    \"platforms\": \"XBox, Playstation, PC\",\r\n    \"imgUrl\": \"https://raw.githubusercontent.com/devsuperior/java-spring-dslist/main/resources/1.png\",\r\n    \"shortDescription\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit esse officiis corrupti unde repellat non quibusdam! Id nihil itaque ipsum!\",\r\n    \"longDescription\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus dolorum illum placeat eligendi, quis maiores veniam. Incidunt dolorum, nisi deleniti dicta odit voluptatem nam provident temporibus reprehenderit blanditiis consectetur tenetur. Dignissimos blanditiis quod corporis iste, aliquid perspiciatis architecto quasi tempore ipsam voluptates ea ad distinctio, sapiente qui, amet quidem culpa.\",\r\n    \"gameListId\" : \"6ba7b810-9dad-11d1-80b4-00c04fd430c8\",\r\n    \"gamePosition\" : 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_host}}/game/401edbe8-f5ca-11ed-b67e-0242ac120002",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"game",
+										"401edbe8-f5ca-11ed-b67e-0242ac120002"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local_host}}/game/401edbe8-f5ca-11ed-b67e-0242ac120002",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"game",
+										"401edbe8-f5ca-11ed-b67e-0242ac120002"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "buscar games",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/games",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"games"
-							]
+					"name": "Game List",
+					"item": [
+						{
+							"name": "buscar games list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local_host}}/list",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "buscar games da lista x",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local_host}}/list/6ba7b810-9dad-11d1-80b4-00c04fd430c8/games",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"list",
+										"6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+										"games"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Game List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"TEST\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_host}}/list",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"UPDATEEEEEEEEEE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_host}}/list/6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"list",
+										"6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local_host}}/list/6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"list",
+										"6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "buscar games da lista x",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/lists/6ba7b810-9dad-11d1-80b4-00c04fd430c8/games",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"lists",
-								"6ba7b810-9dad-11d1-80b4-00c04fd430c8",
-								"games"
-							]
+					"name": "User",
+					"item": [
+						{
+							"name": "Save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"testes@gemail.com\",\r\n    \"password\" : \"1234\",\r\n    \"roleId\" : [\"abf7e5e1-623a-4d74-b3dc-d8c440504dd2\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_host}}/user",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find all users",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Delete by email",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local_host}}/user?email=guest@guest",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"user"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "guest@guest"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update and change password",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"currentPassword\" : \"1234\",\r\n    \"password\" : \"12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_host}}/user?email=testes@gemail.com",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"user"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "testes@gemail.com"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "buscar por id",
+					"name": "Role",
+					"item": [
+						{
+							"name": "Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"roleName\" : \"guest\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_host}}/role",
+									"host": [
+										"{{local_host}}"
+									],
+									"path": [
+										"role"
+									],
+									"query": [
+										{
+											"key": "roleName",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"access_token\", jsonData.access_token);\r",
+									"    pm.environment.set(\"refresh_token\", jsonData.refresh_token);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "http://localhost:8080/games/1",
-							"protocol": "http",
+							"raw": "{{local_host}}/login",
 							"host": [
-								"localhost"
+								"{{local_host}}"
 							],
-							"port": "8080",
 							"path": [
-								"games",
-								"1"
+								"login"
 							]
 						}
 					},
@@ -93,89 +459,469 @@
 			"name": "dominio publico",
 			"item": [
 				{
-					"name": "buscar games list",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "dslist-production-df92.up.railway.app/lists",
-							"host": [
-								"dslist-production-df92",
-								"up",
-								"railway",
-								"app"
-							],
-							"path": [
-								"lists"
-							]
+					"name": "Game Copy",
+					"item": [
+						{
+							"name": "buscar games",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod_host}}/game",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"game"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod_host}}/game/401edbe8-f5ca-11ed-b67e-0242ac120002",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"game",
+										"401edbe8-f5ca-11ed-b67e-0242ac120002"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Game",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"TESTE\",\r\n    \"score\": 4.8,\r\n    \"year\": 2012,\r\n    \"genre\": \"Role-playing (RPG), Shooter\",\r\n    \"platforms\": \"XBox, Playstation, PC\",\r\n    \"imgUrl\": \"https://raw.githubusercontent.com/devsuperior/java-spring-dslist/main/resources/1.png\",\r\n    \"shortDescription\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit esse officiis corrupti unde repellat non quibusdam! Id nihil itaque ipsum!\",\r\n    \"longDescription\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus dolorum illum placeat eligendi, quis maiores veniam. Incidunt dolorum, nisi deleniti dicta odit voluptatem nam provident temporibus reprehenderit blanditiis consectetur tenetur. Dignissimos blanditiis quod corporis iste, aliquid perspiciatis architecto quasi tempore ipsam voluptates ea ad distinctio, sapiente qui, amet quidem culpa.\",\r\n    \"gameListId\" : \"6ba7b810-9dad-11d1-80b4-00c04fd430c8\",\r\n    \"gamePosition\" : 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod_host}}/game",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"game"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "atualizar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"UPDATEEEEEEEE\",\r\n    \"score\": 4.8,\r\n    \"year\": 2012,\r\n    \"genre\": \"Role-playing (RPG), Shooter\",\r\n    \"platforms\": \"XBox, Playstation, PC\",\r\n    \"imgUrl\": \"https://raw.githubusercontent.com/devsuperior/java-spring-dslist/main/resources/1.png\",\r\n    \"shortDescription\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit esse officiis corrupti unde repellat non quibusdam! Id nihil itaque ipsum!\",\r\n    \"longDescription\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus dolorum illum placeat eligendi, quis maiores veniam. Incidunt dolorum, nisi deleniti dicta odit voluptatem nam provident temporibus reprehenderit blanditiis consectetur tenetur. Dignissimos blanditiis quod corporis iste, aliquid perspiciatis architecto quasi tempore ipsam voluptates ea ad distinctio, sapiente qui, amet quidem culpa.\",\r\n    \"gameListId\" : \"6ba7b810-9dad-11d1-80b4-00c04fd430c8\",\r\n    \"gamePosition\" : 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod_host}}/game/401edbe8-f5ca-11ed-b67e-0242ac120002",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"game",
+										"401edbe8-f5ca-11ed-b67e-0242ac120002"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{prod_host}}/game/401edbe8-f5ca-11ed-b67e-0242ac120002",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"game",
+										"401edbe8-f5ca-11ed-b67e-0242ac120002"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "buscar games",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "dslist-production-df92.up.railway.app/games",
-							"host": [
-								"dslist-production-df92",
-								"up",
-								"railway",
-								"app"
-							],
-							"path": [
-								"games"
-							]
+					"name": "Game List Copy",
+					"item": [
+						{
+							"name": "buscar games list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod_host}}}/list",
+									"host": [
+										"{{prod_host}}}"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "buscar games da lista x",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod_host}}/list/6ba7b810-9dad-11d1-80b4-00c04fd430c8/games",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"list",
+										"6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+										"games"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Game List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"TEST\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod_host}}/list",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"UPDATEEEEEEEEEE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod_host}}/list/6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"list",
+										"6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{prod_host}}/list/6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"list",
+										"6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "buscar games da lista x",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "dslist-production-df92.up.railway.app/lists/6ba7b810-9dad-11d1-80b4-00c04fd430c8/games",
-							"host": [
-								"dslist-production-df92",
-								"up",
-								"railway",
-								"app"
-							],
-							"path": [
-								"lists",
-								"6ba7b810-9dad-11d1-80b4-00c04fd430c8",
-								"games"
-							]
+					"name": "User Copy",
+					"item": [
+						{
+							"name": "Save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"testes@gemail.com\",\r\n    \"password\" : \"1234\",\r\n    \"roleId\" : [\"abf7e5e1-623a-4d74-b3dc-d8c440504dd2\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod_host}}/user",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find all users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod_host}}/user",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete by email",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{prod_host}}/user?email=guest@guest",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"user"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "guest@guest"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update and change password",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"currentPassword\" : \"1234\",\r\n    \"password\" : \"12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod_host}}/user?email=testes@gemail.com",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"user"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "testes@gemail.com"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "buscar por id",
+					"name": "Role Copy",
+					"item": [
+						{
+							"name": "Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"roleName\" : \"guest\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod_host}}/role",
+									"host": [
+										"{{prod_host}}"
+									],
+									"path": [
+										"role"
+									],
+									"query": [
+										{
+											"key": "roleName",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"access_token\", jsonData.access_token);\r",
+									"    pm.environment.set(\"refresh_token\", jsonData.refresh_token);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "dslist-production-df92.up.railway.app/games/401edbe8-f5ca-11ed-b67e-0242ac120002",
+							"raw": "{{prod_host}}/login",
 							"host": [
-								"dslist-production-df92",
-								"up",
-								"railway",
-								"app"
+								"{{prod_host}}"
 							],
 							"path": [
-								"games",
-								"401edbe8-f5ca-11ed-b67e-0242ac120002"
+								"login"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
 		}
 	]
 }
